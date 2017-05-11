@@ -4,9 +4,16 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:sqlserver://localhost:1433;databaseName=PolessBattery</property>
-    <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-    <mapping class="Hibernate.Tables.BatteryEntity"/>
+      <property name="connection.url">jdbc:sqlserver://localhost:1433;databaseName=PolessBattery</property>
+      <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+      <property name="show_sql">true</property>
+      <property name="hibernate.current_session_context_class">thread</property>
+      <property name="hibernate.connection.username">root</property>
+      <property name="hibernate.connection.password">root</property>
+      <property name="hbm2ddl.auto">validate</property>
+
+      <mapping class="Hibernate.Tables.BatteryEntity"/>
       <mapping resource="Hibernate/Tables/BatteryEntity.hbm.xml"/>
       <mapping class="Hibernate.Tables.BrigadeEntity"/>
       <mapping resource="Hibernate/Tables/BrigadeEntity.hbm.xml"/>
@@ -32,10 +39,7 @@
       <mapping class="Hibernate.Tables.StorageFinishedProductsEntity"/>
       <mapping resource="Hibernate/Tables/SuppliersEntity.hbm.xml"/>
       <mapping class="Hibernate.Tables.SuppliersEntity"/>
-      <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->
-    <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>

@@ -6,7 +6,11 @@
 
     <class name="Hibernate.Tables.StorageFinishedProductsEntity" table="StorageFinishedProducts" schema="dbo"
            catalog="PolessBattery">
-        <id name="batteryId" column="BatteryID"/>
-        <property name="quantityProduct" column="QuantityProduct"/>
+        <id name="batteryId">
+            <column name="BatteryID" sql-type="int"/>
+        </id>
+        <property name="quantityProduct">
+            <column name="QuantityProduct" sql-type="float" precision="-1"/>
+        </property>
     </class>
 </hibernate-mapping>

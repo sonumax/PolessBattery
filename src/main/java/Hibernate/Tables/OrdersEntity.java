@@ -11,7 +11,7 @@ public class OrdersEntity {
     private Date dateExecution;
 
     @Id
-    @Column(name = "OrderID")
+    @Column(name = "OrderID", nullable = false)
     public int getOrderId() {
         return orderId;
     }
@@ -21,7 +21,7 @@ public class OrdersEntity {
     }
 
     @Basic
-    @Column(name = "QuantityProduct")
+    @Column(name = "QuantityProduct", nullable = false, precision = 0)
     public double getQuantityProduct() {
         return quantityProduct;
     }
@@ -31,7 +31,7 @@ public class OrdersEntity {
     }
 
     @Basic
-    @Column(name = "DateExecution")
+    @Column(name = "DateExecution", nullable = true)
     public Date getDateExecution() {
         return dateExecution;
     }

@@ -6,8 +6,14 @@
 
     <class name="Hibernate.Tables.ProductionPackagingEntity" table="ProductionPackaging" schema="dbo"
            catalog="PolessBattery">
-        <id name="planPackagingId" column="PlanPackagingID"/>
-        <property name="quantityFinishProduct" column="QuantityFinishProduct"/>
-        <property name="dateAssembly" column="DateAssembly"/>
+        <id name="planPackagingId">
+            <column name="PlanPackagingID" sql-type="int"/>
+        </id>
+        <property name="quantityFinishProduct">
+            <column name="QuantityFinishProduct" sql-type="float" precision="-1"/>
+        </property>
+        <property name="dateAssembly">
+            <column name="DateAssembly" sql-type="date"/>
+        </property>
     </class>
 </hibernate-mapping>

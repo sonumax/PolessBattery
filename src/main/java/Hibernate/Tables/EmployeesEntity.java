@@ -18,7 +18,7 @@ public class EmployeesEntity {
     private Date dateRecruitment;
 
     @Id
-    @Column(name = "EmployeeID")
+    @Column(name = "EmployeeID", nullable = false)
     public int getEmployeeId() {
         return employeeId;
     }
@@ -28,7 +28,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Surname")
+    @Column(name = "Surname", nullable = false, length = 15)
     public String getSurname() {
         return surname;
     }
@@ -38,7 +38,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = false, length = 15)
     public String getName() {
         return name;
     }
@@ -48,7 +48,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Patronymic")
+    @Column(name = "Patronymic", nullable = false, length = 15)
     public String getPatronymic() {
         return patronymic;
     }
@@ -58,7 +58,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Specialty")
+    @Column(name = "Specialty", nullable = false, length = 15)
     public String getSpecialty() {
         return specialty;
     }
@@ -68,7 +68,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Rank")
+    @Column(name = "Rank", nullable = true, length = 10)
     public String getRank() {
         return rank;
     }
@@ -78,7 +78,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Address")
+    @Column(name = "Address", nullable = false, length = 100)
     public String getAddress() {
         return address;
     }
@@ -88,7 +88,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "Phone")
+    @Column(name = "Phone", nullable = true, length = 15)
     public String getPhone() {
         return phone;
     }
@@ -98,7 +98,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "E-mail")
+    @Column(name = "E-mail", nullable = true, length = 20)
     public String geteMail() {
         return eMail;
     }
@@ -108,7 +108,7 @@ public class EmployeesEntity {
     }
 
     @Basic
-    @Column(name = "DateRecruitment")
+    @Column(name = "DateRecruitment", nullable = false)
     public Date getDateRecruitment() {
         return dateRecruitment;
     }

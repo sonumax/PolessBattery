@@ -9,7 +9,7 @@ public class StorageFinishedProductsEntity {
     private double quantityProduct;
 
     @Id
-    @Column(name = "BatteryID")
+    @Column(name = "BatteryID", nullable = false)
     public int getBatteryId() {
         return batteryId;
     }
@@ -19,7 +19,7 @@ public class StorageFinishedProductsEntity {
     }
 
     @Basic
-    @Column(name = "QuantityProduct")
+    @Column(name = "QuantityProduct", nullable = false, precision = 0)
     public double getQuantityProduct() {
         return quantityProduct;
     }

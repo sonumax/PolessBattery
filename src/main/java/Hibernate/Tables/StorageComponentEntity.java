@@ -10,7 +10,7 @@ public class StorageComponentEntity {
     private String unit;
 
     @Id
-    @Column(name = "ComponentID")
+    @Column(name = "ComponentID", nullable = false)
     public int getComponentId() {
         return componentId;
     }
@@ -20,7 +20,7 @@ public class StorageComponentEntity {
     }
 
     @Basic
-    @Column(name = "QuantityProduct")
+    @Column(name = "QuantityProduct", nullable = false, precision = 0)
     public double getQuantityProduct() {
         return quantityProduct;
     }
@@ -30,7 +30,7 @@ public class StorageComponentEntity {
     }
 
     @Basic
-    @Column(name = "Unit")
+    @Column(name = "Unit", nullable = false, length = 10)
     public String getUnit() {
         return unit;
     }

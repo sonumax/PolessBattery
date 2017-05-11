@@ -13,7 +13,7 @@ public class OldEmployessEntity {
     private String phone;
 
     @Id
-    @Column(name = "EmployeeID")
+    @Column(name = "EmployeeID", nullable = false)
     public int getEmployeeId() {
         return employeeId;
     }
@@ -23,7 +23,7 @@ public class OldEmployessEntity {
     }
 
     @Basic
-    @Column(name = "Surname")
+    @Column(name = "Surname", nullable = false, length = 15)
     public String getSurname() {
         return surname;
     }
@@ -33,7 +33,7 @@ public class OldEmployessEntity {
     }
 
     @Basic
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = false, length = 15)
     public String getName() {
         return name;
     }
@@ -43,7 +43,7 @@ public class OldEmployessEntity {
     }
 
     @Basic
-    @Column(name = "Patronymic")
+    @Column(name = "Patronymic", nullable = false, length = 10)
     public String getPatronymic() {
         return patronymic;
     }
@@ -53,7 +53,7 @@ public class OldEmployessEntity {
     }
 
     @Basic
-    @Column(name = "Address")
+    @Column(name = "Address", nullable = false, length = 100)
     public String getAddress() {
         return address;
     }
@@ -63,7 +63,7 @@ public class OldEmployessEntity {
     }
 
     @Basic
-    @Column(name = "Phone")
+    @Column(name = "Phone", nullable = false, length = 15)
     public String getPhone() {
         return phone;
     }

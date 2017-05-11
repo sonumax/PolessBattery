@@ -13,7 +13,7 @@ public class SuppliersEntity {
     private String eMail;
 
     @Id
-    @Column(name = "SupplierID")
+    @Column(name = "SupplierID", nullable = false)
     public int getSupplierId() {
         return supplierId;
     }
@@ -23,7 +23,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "OrganizationName")
+    @Column(name = "OrganizationName", nullable = false, length = 50)
     public String getOrganizationName() {
         return organizationName;
     }
@@ -33,7 +33,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "Address")
+    @Column(name = "Address", nullable = false, length = 100)
     public String getAddress() {
         return address;
     }
@@ -43,7 +43,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "ContactPerson")
+    @Column(name = "ContactPerson", nullable = false, length = 50)
     public String getContactPerson() {
         return contactPerson;
     }
@@ -53,7 +53,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "Phone")
+    @Column(name = "Phone", nullable = true, length = 15)
     public String getPhone() {
         return phone;
     }
@@ -63,7 +63,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "E-mail")
+    @Column(name = "E-mail", nullable = true, length = 20)
     public String geteMail() {
         return eMail;
     }

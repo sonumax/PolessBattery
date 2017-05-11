@@ -5,9 +5,17 @@
 <hibernate-mapping>
 
     <class name="Hibernate.Tables.BatteryEntity" table="Battery" schema="dbo" catalog="PolessBattery">
-        <id name="batteryId" column="BatteryID"/>
-        <property name="mark" column="Mark"/>
-        <property name="capacity" column="Capacity"/>
-        <property name="amperage" column="Amperage"/>
+        <id name="batteryId">
+            <column name="BatteryID" sql-type="int"/>
+        </id>
+        <property name="mark">
+            <column name="Mark" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="capacity">
+            <column name="Capacity" sql-type="float" precision="-1"/>
+        </property>
+        <property name="amperage">
+            <column name="Amperage" sql-type="float" precision="-1"/>
+        </property>
     </class>
 </hibernate-mapping>

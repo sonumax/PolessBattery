@@ -9,7 +9,7 @@ public class PolarityEntity {
     private String namePolarity;
 
     @Id
-    @Column(name = "PolarityID")
+    @Column(name = "PolarityID", nullable = false)
     public int getPolarityId() {
         return polarityId;
     }
@@ -19,7 +19,7 @@ public class PolarityEntity {
     }
 
     @Basic
-    @Column(name = "NamePolarity")
+    @Column(name = "NamePolarity", nullable = false, length = 15)
     public String getNamePolarity() {
         return namePolarity;
     }

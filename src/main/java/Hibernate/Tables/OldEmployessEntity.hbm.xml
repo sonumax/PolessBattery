@@ -5,11 +5,23 @@
 <hibernate-mapping>
 
     <class name="Hibernate.Tables.OldEmployessEntity" table="OldEmployess" schema="dbo" catalog="PolessBattery">
-        <id name="employeeId" column="EmployeeID"/>
-        <property name="surname" column="Surname"/>
-        <property name="name" column="Name"/>
-        <property name="patronymic" column="Patronymic"/>
-        <property name="address" column="Address"/>
-        <property name="phone" column="Phone"/>
+        <id name="employeeId">
+            <column name="EmployeeID" sql-type="int"/>
+        </id>
+        <property name="surname">
+            <column name="Surname" sql-type="varchar(15)" length="15"/>
+        </property>
+        <property name="name">
+            <column name="Name" sql-type="varchar(15)" length="15"/>
+        </property>
+        <property name="patronymic">
+            <column name="Patronymic" sql-type="nchar(10)" length="10"/>
+        </property>
+        <property name="address">
+            <column name="Address" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="phone">
+            <column name="Phone" sql-type="varchar(15)" length="15"/>
+        </property>
     </class>
 </hibernate-mapping>

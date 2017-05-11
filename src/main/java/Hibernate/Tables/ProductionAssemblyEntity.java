@@ -11,7 +11,7 @@ public class ProductionAssemblyEntity {
     private Date dateAssembly;
 
     @Id
-    @Column(name = "PlanAssemblyID")
+    @Column(name = "PlanAssemblyID", nullable = false)
     public int getPlanAssemblyId() {
         return planAssemblyId;
     }
@@ -21,7 +21,7 @@ public class ProductionAssemblyEntity {
     }
 
     @Basic
-    @Column(name = "QuantityFinishProduct")
+    @Column(name = "QuantityFinishProduct", nullable = false, precision = 0)
     public double getQuantityFinishProduct() {
         return quantityFinishProduct;
     }
@@ -31,7 +31,7 @@ public class ProductionAssemblyEntity {
     }
 
     @Basic
-    @Column(name = "DateAssembly")
+    @Column(name = "DateAssembly", nullable = false)
     public Date getDateAssembly() {
         return dateAssembly;
     }

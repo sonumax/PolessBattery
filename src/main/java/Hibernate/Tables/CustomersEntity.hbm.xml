@@ -5,11 +5,23 @@
 <hibernate-mapping>
 
     <class name="Hibernate.Tables.CustomersEntity" table="Customers" schema="dbo" catalog="PolessBattery">
-        <id name="customerId" column="CustomerID"/>
-        <property name="organizationName" column="OrganizationName"/>
-        <property name="address" column="Address"/>
-        <property name="contactPerson" column="ContactPerson"/>
-        <property name="phone" column="Phone"/>
-        <property name="eMail" column="E-mail"/>
+        <id name="customerId">
+            <column name="CustomerID" sql-type="int"/>
+        </id>
+        <property name="organizationName">
+            <column name="OrganizationName" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="address">
+            <column name="Address" sql-type="varchar(100)" length="100"/>
+        </property>
+        <property name="contactPerson">
+            <column name="ContactPerson" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="phone">
+            <column name="Phone" sql-type="varchar(15)" length="15" not-null="true"/>
+        </property>
+        <property name="eMail">
+            <column name="E-mail" sql-type="varchar(30)" length="30" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

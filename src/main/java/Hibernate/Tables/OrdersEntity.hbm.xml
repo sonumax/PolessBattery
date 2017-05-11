@@ -5,8 +5,14 @@
 <hibernate-mapping>
 
     <class name="Hibernate.Tables.OrdersEntity" table="Orders" schema="dbo" catalog="PolessBattery">
-        <id name="orderId" column="OrderID"/>
-        <property name="quantityProduct" column="QuantityProduct"/>
-        <property name="dateExecution" column="DateExecution"/>
+        <id name="orderId">
+            <column name="OrderID" sql-type="int"/>
+        </id>
+        <property name="quantityProduct">
+            <column name="QuantityProduct" sql-type="float" precision="-1"/>
+        </property>
+        <property name="dateExecution">
+            <column name="DateExecution" sql-type="date" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

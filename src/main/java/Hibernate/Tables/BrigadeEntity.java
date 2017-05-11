@@ -9,7 +9,7 @@ public class BrigadeEntity {
     private int quantityEmployee;
 
     @Id
-    @Column(name = "BrigadeID")
+    @Column(name = "BrigadeID", nullable = false, length = 10)
     public String getBrigadeId() {
         return brigadeId;
     }
@@ -19,7 +19,7 @@ public class BrigadeEntity {
     }
 
     @Basic
-    @Column(name = "QuantityEmployee")
+    @Column(name = "QuantityEmployee", nullable = false)
     public int getQuantityEmployee() {
         return quantityEmployee;
     }

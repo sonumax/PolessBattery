@@ -5,7 +5,11 @@
 <hibernate-mapping>
 
     <class name="Hibernate.Tables.BrigadeEntity" table="Brigade" schema="dbo" catalog="PolessBattery">
-        <id name="brigadeId" column="BrigadeID"/>
-        <property name="quantityEmployee" column="QuantityEmployee"/>
+        <id name="brigadeId">
+            <column name="BrigadeID" sql-type="varchar(10)" length="10"/>
+        </id>
+        <property name="quantityEmployee">
+            <column name="QuantityEmployee" sql-type="int"/>
+        </property>
     </class>
 </hibernate-mapping>

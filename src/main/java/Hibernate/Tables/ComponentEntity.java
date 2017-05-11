@@ -9,7 +9,7 @@ public class ComponentEntity {
     private String nameComponent;
 
     @Id
-    @Column(name = "ComponentID")
+    @Column(name = "ComponentID", nullable = false)
     public int getComponentId() {
         return componentId;
     }
@@ -19,7 +19,7 @@ public class ComponentEntity {
     }
 
     @Basic
-    @Column(name = "NameComponent")
+    @Column(name = "NameComponent", nullable = false, length = 30)
     public String getNameComponent() {
         return nameComponent;
     }

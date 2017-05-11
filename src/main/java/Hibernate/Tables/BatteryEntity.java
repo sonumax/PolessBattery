@@ -11,7 +11,7 @@ public class BatteryEntity {
     private double amperage;
 
     @Id
-    @Column(name = "BatteryID")
+    @Column(name = "BatteryID", nullable = false)
     public int getBatteryId() {
         return batteryId;
     }
@@ -21,7 +21,7 @@ public class BatteryEntity {
     }
 
     @Basic
-    @Column(name = "Mark")
+    @Column(name = "Mark", nullable = false, length = 20)
     public String getMark() {
         return mark;
     }
@@ -31,7 +31,7 @@ public class BatteryEntity {
     }
 
     @Basic
-    @Column(name = "Capacity")
+    @Column(name = "Capacity", nullable = false, precision = 0)
     public double getCapacity() {
         return capacity;
     }
@@ -41,7 +41,7 @@ public class BatteryEntity {
     }
 
     @Basic
-    @Column(name = "Amperage")
+    @Column(name = "Amperage", nullable = false, precision = 0)
     public double getAmperage() {
         return amperage;
     }

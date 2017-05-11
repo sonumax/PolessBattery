@@ -6,8 +6,14 @@
 
     <class name="Hibernate.Tables.StorageComponentEntity" table="StorageComponent" schema="dbo"
            catalog="PolessBattery">
-        <id name="componentId" column="ComponentID"/>
-        <property name="quantityProduct" column="QuantityProduct"/>
-        <property name="unit" column="Unit"/>
+        <id name="componentId">
+            <column name="ComponentID" sql-type="int"/>
+        </id>
+        <property name="quantityProduct">
+            <column name="QuantityProduct" sql-type="float" precision="-1"/>
+        </property>
+        <property name="unit">
+            <column name="Unit" sql-type="varchar(10)" length="10"/>
+        </property>
     </class>
 </hibernate-mapping>

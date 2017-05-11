@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="Hibernate.Tables.EmployeesEntity" table="Employees" schema="dbo" catalog="PolessBattery">
+        <id name="employeeId" column="EmployeeID"/>
+        <property name="surname" column="Surname"/>
+        <property name="name" column="Name"/>
+        <property name="patronymic" column="Patronymic"/>
+        <property name="specialty" column="Specialty"/>
+        <property name="rank" column="Rank"/>
+        <property name="address" column="Address"/>
+        <property name="phone" column="Phone"/>
+        <property name="eMail" column="E-mail"/>
+        <property name="dateRecruitment" column="DateRecruitment"/>
+    </class>
+</hibernate-mapping>

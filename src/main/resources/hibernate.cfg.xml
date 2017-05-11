@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:sqlserver://localhost:1433;databaseName=PolessBattery</property>
+    <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <mapping class="Hibernate.Tables.BatteryEntity"/>
+      <mapping resource="Hibernate/Tables/BatteryEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.BrigadeEntity"/>
+      <mapping resource="Hibernate/Tables/BrigadeEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.ComponentEntity"/>
+      <mapping resource="Hibernate/Tables/ComponentEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.CustomersEntity"/>
+      <mapping resource="Hibernate/Tables/CustomersEntity.hbm.xml"/>
+      <mapping resource="Hibernate/Tables/EmployeesEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.EmployeesEntity"/>
+      <mapping resource="Hibernate/Tables/OldEmployessEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.OldEmployessEntity"/>
+      <mapping resource="Hibernate/Tables/OrdersEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.OrdersEntity"/>
+      <mapping resource="Hibernate/Tables/PolarityEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.PolarityEntity"/>
+      <mapping class="Hibernate.Tables.ProductionAssemblyEntity"/>
+      <mapping resource="Hibernate/Tables/ProductionAssemblyEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.ProductionPackagingEntity"/>
+      <mapping resource="Hibernate/Tables/ProductionPackagingEntity.hbm.xml"/>
+      <mapping resource="Hibernate/Tables/StorageComponentEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.StorageComponentEntity"/>
+      <mapping resource="Hibernate/Tables/StorageFinishedProductsEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.StorageFinishedProductsEntity"/>
+      <mapping resource="Hibernate/Tables/SuppliersEntity.hbm.xml"/>
+      <mapping class="Hibernate.Tables.SuppliersEntity"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

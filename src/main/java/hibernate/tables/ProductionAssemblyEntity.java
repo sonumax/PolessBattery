@@ -1,7 +1,8 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "ProductionAssembly", schema = "dbo", catalog = "PolessBattery")
@@ -9,9 +10,13 @@ public class ProductionAssemblyEntity {
     private int planAssemblyId;
     private double quantityFinishProduct;
     private Date dateAssembly;
+    private BatteryEntity batteryByBatteryId;
+    private BrigadeEntity brigadeByBrigadeId;
+    private Set<ProductionPackagingEntity> productionPackagingsByPlanAssemblyId;
 
     @Id
-    @Column(name = "PlanAssemblyID", nullable = false)
+    @Column(name = "PlanAssemblyID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getPlanAssemblyId() {
         return planAssemblyId;
     }
@@ -21,7 +26,7 @@ public class ProductionAssemblyEntity {
     }
 
     @Basic
-    @Column(name = "QuantityFinishProduct", nullable = false, precision = 0)
+    @Column(name = "QuantityFinishProduct")
     public double getQuantityFinishProduct() {
         return quantityFinishProduct;
     }
@@ -31,13 +36,42 @@ public class ProductionAssemblyEntity {
     }
 
     @Basic
-    @Column(name = "DateAssembly", nullable = false)
+    @Column(name = "DateAssembly")
     public Date getDateAssembly() {
         return dateAssembly;
     }
 
     public void setDateAssembly(Date dateAssembly) {
         this.dateAssembly = dateAssembly;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
+    public BatteryEntity getBatteryByBatteryId() {
+        return batteryByBatteryId;
+    }
+
+    public void setBatteryByBatteryId(BatteryEntity batteryByBatteryId) {
+        this.batteryByBatteryId = batteryByBatteryId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "BrigadeID", referencedColumnName = "BrigadeID", nullable = false)
+    public BrigadeEntity getBrigadeByBrigadeId() {
+        return brigadeByBrigadeId;
+    }
+
+    public void setBrigadeByBrigadeId(BrigadeEntity brigadeByBrigadeId) {
+        this.brigadeByBrigadeId = brigadeByBrigadeId;
+    }
+
+    @OneToMany(mappedBy = "productionAssemblyByPlanAssemblyId")
+    public Set<ProductionPackagingEntity> getProductionPackagingsByPlanAssemblyId() {
+        return productionPackagingsByPlanAssemblyId;
+    }
+
+    public void setProductionPackagingsByPlanAssemblyId(Set<ProductionPackagingEntity> productionPackagingsByPlanAssemblyId) {
+        this.productionPackagingsByPlanAssemblyId = productionPackagingsByPlanAssemblyId;
     }
 
     @Override

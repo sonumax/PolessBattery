@@ -1,4 +1,4 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
 
@@ -7,9 +7,10 @@ import javax.persistence.*;
 public class StorageFinishedProductsEntity {
     private int batteryId;
     private double quantityProduct;
+    private BatteryEntity batteryByBatteryId;
 
     @Id
-    @Column(name = "BatteryID", nullable = false)
+    @Column(name = "BatteryID")
     public int getBatteryId() {
         return batteryId;
     }
@@ -19,13 +20,23 @@ public class StorageFinishedProductsEntity {
     }
 
     @Basic
-    @Column(name = "QuantityProduct", nullable = false, precision = 0)
+    @Column(name = "QuantityProduct")
     public double getQuantityProduct() {
         return quantityProduct;
     }
 
     public void setQuantityProduct(double quantityProduct) {
         this.quantityProduct = quantityProduct;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
+    public BatteryEntity getBatteryByBatteryId() {
+        return batteryByBatteryId;
+    }
+
+    public void setBatteryByBatteryId(BatteryEntity batteryByBatteryId) {
+        this.batteryByBatteryId = batteryByBatteryId;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
 
@@ -10,10 +10,12 @@ public class SuppliersEntity {
     private String address;
     private String contactPerson;
     private String phone;
-    private String eMail;
+    private String mail;
+    private ComponentEntity componentId;
 
     @Id
-    @Column(name = "SupplierID", nullable = false)
+    @Column(name = "SupplierID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getSupplierId() {
         return supplierId;
     }
@@ -23,7 +25,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "OrganizationName", nullable = false, length = 50)
+    @Column(name = "OrganizationName")
     public String getOrganizationName() {
         return organizationName;
     }
@@ -33,7 +35,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "Address", nullable = false, length = 100)
+    @Column(name = "Address")
     public String getAddress() {
         return address;
     }
@@ -43,7 +45,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "ContactPerson", nullable = false, length = 50)
+    @Column(name = "ContactPerson")
     public String getContactPerson() {
         return contactPerson;
     }
@@ -53,7 +55,7 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "Phone", nullable = true, length = 15)
+    @Column(name = "Phone")
     public String getPhone() {
         return phone;
     }
@@ -63,13 +65,23 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "E-mail", nullable = true, length = 20)
-    public String geteMail() {
-        return eMail;
+    @Column(name = "E-mail")
+    public String getMail() {
+        return mail;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setMail(String eMail) {
+        this.mail = eMail;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ComponentID", referencedColumnName = "ComponentID", nullable = false)
+    public ComponentEntity getComponentId() {
+        return componentId;
+    }
+
+    public void setComponentId(ComponentEntity componentByComponentId) {
+        this.componentId = componentByComponentId;
     }
 
     @Override
@@ -80,13 +92,14 @@ public class SuppliersEntity {
         SuppliersEntity that = (SuppliersEntity) o;
 
         if (supplierId != that.supplierId) return false;
+        if (componentId != that.componentId) return false;
         if (organizationName != null ? !organizationName.equals(that.organizationName) : that.organizationName != null)
             return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (contactPerson != null ? !contactPerson.equals(that.contactPerson) : that.contactPerson != null)
             return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (eMail != null ? !eMail.equals(that.eMail) : that.eMail != null) return false;
+        if (mail != null ? !mail.equals(that.mail) : that.mail != null) return false;
 
         return true;
     }
@@ -94,11 +107,12 @@ public class SuppliersEntity {
     @Override
     public int hashCode() {
         int result = supplierId;
+        result = 31 * result + componentId.getComponentId();
         result = 31 * result + (organizationName != null ? organizationName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (contactPerson != null ? contactPerson.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (eMail != null ? eMail.hashCode() : 0);
+        result = 31 * result + (mail != null ? mail.hashCode() : 0);
         return result;
     }
 }

@@ -1,4 +1,4 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,9 +9,12 @@ public class ProductionPackagingEntity {
     private int planPackagingId;
     private double quantityFinishProduct;
     private Date dateAssembly;
+    private ProductionAssemblyEntity productionAssemblyByPlanAssemblyId;
+    private BrigadeEntity brigadeByBrigadeId;
 
     @Id
-    @Column(name = "PlanPackagingID", nullable = false)
+    @Column(name = "PlanPackagingID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getPlanPackagingId() {
         return planPackagingId;
     }
@@ -21,7 +24,7 @@ public class ProductionPackagingEntity {
     }
 
     @Basic
-    @Column(name = "QuantityFinishProduct", nullable = false, precision = 0)
+    @Column(name = "QuantityFinishProduct")
     public double getQuantityFinishProduct() {
         return quantityFinishProduct;
     }
@@ -31,13 +34,33 @@ public class ProductionPackagingEntity {
     }
 
     @Basic
-    @Column(name = "DateAssembly", nullable = false)
+    @Column(name = "DateAssembly")
     public Date getDateAssembly() {
         return dateAssembly;
     }
 
     public void setDateAssembly(Date dateAssembly) {
         this.dateAssembly = dateAssembly;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "PlanAssemblyID", referencedColumnName = "PlanAssemblyID", nullable = false)
+    public ProductionAssemblyEntity getProductionAssemblyByPlanAssemblyId() {
+        return productionAssemblyByPlanAssemblyId;
+    }
+
+    public void setProductionAssemblyByPlanAssemblyId(ProductionAssemblyEntity productionAssemblyByPlanAssemblyId) {
+        this.productionAssemblyByPlanAssemblyId = productionAssemblyByPlanAssemblyId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "BrigadeID", referencedColumnName = "BrigadeID", nullable = false)
+    public BrigadeEntity getBrigadeByBrigadeId() {
+        return brigadeByBrigadeId;
+    }
+
+    public void setBrigadeByBrigadeId(BrigadeEntity brigadeByBrigadeId) {
+        this.brigadeByBrigadeId = brigadeByBrigadeId;
     }
 
     @Override

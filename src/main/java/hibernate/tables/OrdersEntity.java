@@ -1,4 +1,4 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,9 +9,12 @@ public class OrdersEntity {
     private int orderId;
     private double quantityProduct;
     private Date dateExecution;
+    private CustomersEntity customersByCustomerId;
+    private BatteryEntity batteryByBatteryId;
 
     @Id
-    @Column(name = "OrderID", nullable = false)
+    @Column(name = "OrderID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getOrderId() {
         return orderId;
     }
@@ -21,7 +24,7 @@ public class OrdersEntity {
     }
 
     @Basic
-    @Column(name = "QuantityProduct", nullable = false, precision = 0)
+    @Column(name = "QuantityProduct")
     public double getQuantityProduct() {
         return quantityProduct;
     }
@@ -31,13 +34,33 @@ public class OrdersEntity {
     }
 
     @Basic
-    @Column(name = "DateExecution", nullable = true)
+    @Column(name = "DateExecution")
     public Date getDateExecution() {
         return dateExecution;
     }
 
     public void setDateExecution(Date dateExecution) {
         this.dateExecution = dateExecution;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "CustomerID", referencedColumnName = "CustomerID", nullable = false)
+    public CustomersEntity getCustomersByCustomerId() {
+        return customersByCustomerId;
+    }
+
+    public void setCustomersByCustomerId(CustomersEntity customersByCustomerId) {
+        this.customersByCustomerId = customersByCustomerId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
+    public BatteryEntity getBatteryByBatteryId() {
+        return batteryByBatteryId;
+    }
+
+    public void setBatteryByBatteryId(BatteryEntity batteryByBatteryId) {
+        this.batteryByBatteryId = batteryByBatteryId;
     }
 
     @Override

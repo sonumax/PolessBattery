@@ -1,15 +1,19 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Component", schema = "dbo", catalog = "PolessBattery")
 public class ComponentEntity {
     private int componentId;
     private String nameComponent;
+    private StorageComponentEntity storageComponentByComponentId;
+    private Set<SuppliersEntity> suppliersByComponentId;
 
     @Id
-    @Column(name = "ComponentID", nullable = false)
+    @Column(name = "ComponentID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getComponentId() {
         return componentId;
     }
@@ -19,13 +23,31 @@ public class ComponentEntity {
     }
 
     @Basic
-    @Column(name = "NameComponent", nullable = false, length = 30)
+    @Column(name = "NameComponent")
     public String getNameComponent() {
         return nameComponent;
     }
 
     public void setNameComponent(String nameComponent) {
         this.nameComponent = nameComponent;
+    }
+
+    @OneToOne(mappedBy = "componentByComponentId")
+    public StorageComponentEntity getStorageComponentByComponentId() {
+        return storageComponentByComponentId;
+    }
+
+    public void setStorageComponentByComponentId(StorageComponentEntity storageComponentByComponentId) {
+        this.storageComponentByComponentId = storageComponentByComponentId;
+    }
+
+    @OneToMany(mappedBy = "componentId")
+    public Set<SuppliersEntity> getSuppliersByComponentId() {
+        return suppliersByComponentId;
+    }
+
+    public void setSuppliersByComponentId(Set<SuppliersEntity> suppliersByComponentId) {
+        this.suppliersByComponentId = suppliersByComponentId;
     }
 
     @Override

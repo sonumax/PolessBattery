@@ -1,6 +1,7 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Customers", schema = "dbo", catalog = "PolessBattery")
@@ -11,9 +12,11 @@ public class CustomersEntity {
     private String contactPerson;
     private String phone;
     private String eMail;
+    private Set<OrdersEntity> ordersByCustomerId;
 
     @Id
-    @Column(name = "CustomerID", nullable = false)
+    @Column(name = "CustomerID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getCustomerId() {
         return customerId;
     }
@@ -23,7 +26,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "OrganizationName", nullable = false, length = 50)
+    @Column(name = "OrganizationName")
     public String getOrganizationName() {
         return organizationName;
     }
@@ -33,7 +36,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "Address", nullable = false, length = 100)
+    @Column(name = "Address")
     public String getAddress() {
         return address;
     }
@@ -43,7 +46,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "ContactPerson", nullable = false, length = 50)
+    @Column(name = "ContactPerson")
     public String getContactPerson() {
         return contactPerson;
     }
@@ -53,7 +56,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "Phone", nullable = true, length = 15)
+    @Column(name = "Phone")
     public String getPhone() {
         return phone;
     }
@@ -63,13 +66,22 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "E-mail", nullable = true, length = 30)
-    public String geteMail() {
+    @Column(name = "E-mail")
+    public String getMail() {
         return eMail;
     }
 
-    public void seteMail(String eMail) {
+    public void setMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    @OneToMany(mappedBy = "customersByCustomerId")
+    public Set<OrdersEntity> getOrdersByCustomerId() {
+        return ordersByCustomerId;
+    }
+
+    public void setOrdersByCustomerId(Set<OrdersEntity> ordersByCustomerId) {
+        this.ordersByCustomerId = ordersByCustomerId;
     }
 
     @Override

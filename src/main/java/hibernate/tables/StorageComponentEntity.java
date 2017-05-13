@@ -1,4 +1,4 @@
-package Hibernate.Tables;
+package hibernate.tables;
 
 import javax.persistence.*;
 
@@ -8,9 +8,10 @@ public class StorageComponentEntity {
     private int componentId;
     private double quantityProduct;
     private String unit;
+    private ComponentEntity componentByComponentId;
 
     @Id
-    @Column(name = "ComponentID", nullable = false)
+    @Column(name = "ComponentID")
     public int getComponentId() {
         return componentId;
     }
@@ -20,7 +21,7 @@ public class StorageComponentEntity {
     }
 
     @Basic
-    @Column(name = "QuantityProduct", nullable = false, precision = 0)
+    @Column(name = "QuantityProduct")
     public double getQuantityProduct() {
         return quantityProduct;
     }
@@ -30,13 +31,23 @@ public class StorageComponentEntity {
     }
 
     @Basic
-    @Column(name = "Unit", nullable = false, length = 10)
+    @Column(name = "Unit")
     public String getUnit() {
         return unit;
     }
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "ComponentID", referencedColumnName = "ComponentID", nullable = false)
+    public ComponentEntity getComponentByComponentId() {
+        return componentByComponentId;
+    }
+
+    public void setComponentByComponentId(ComponentEntity componentByComponentId) {
+        this.componentByComponentId = componentByComponentId;
     }
 
     @Override

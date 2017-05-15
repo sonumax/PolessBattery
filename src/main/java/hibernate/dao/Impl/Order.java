@@ -11,22 +11,22 @@ import javax.persistence.criteria.Root;
 import java.util.Collection;
 import java.util.Date;
 
-public class Order implements IOrder {
+public class Order implements IOrder<OrdersEntity> {
 
     private final DBService<OrdersEntity> dbService = new DBService<>();
 
     @Override
-    public void addOrder(final OrdersEntity order) {
+    public void add(final OrdersEntity order) {
         dbService.insertToDB(order);
     }
 
     @Override
-    public void updateOrder(final OrdersEntity order) {
+    public void update(final OrdersEntity order) {
         dbService.updateInDB(order);
     }
 
     @Override
-    public void deleteOrder(final OrdersEntity order) {
+    public void delete(final OrdersEntity order) {
         dbService.deleteInDB(order);
     }
 

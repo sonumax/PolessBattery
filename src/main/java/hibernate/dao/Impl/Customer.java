@@ -8,22 +8,22 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Customer implements ICustomer {
+public class Customer implements ICustomer<CustomersEntity> {
 
     private final DBService<CustomersEntity> dbService = new DBService<>();
 
     @Override
-    public void addCustomer(final CustomersEntity customer) {
+    public void add(final CustomersEntity customer) {
        dbService.insertToDB(customer);
     }
 
     @Override
-    public void updateCustomer(final CustomersEntity customer) {
+    public void update(final CustomersEntity customer) {
         dbService.updateInDB(customer);
     }
 
     @Override
-    public void deleteCustomer(final CustomersEntity customer) {
+    public void delete(final CustomersEntity customer) {
         dbService.deleteInDB(customer);
     }
 

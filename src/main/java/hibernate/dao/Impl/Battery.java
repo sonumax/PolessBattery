@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Battery implements IBattery {
+public class Battery implements IBattery<BatteryEntity> {
 
     private final DBService<BatteryEntity> dbService = new DBService<>();
 

@@ -13,10 +13,10 @@ public class BatteryEntity {
     private double capacity;
     private double amperage;
     private PolarityEntity polarityId;
-    private StorageFinishedProductsEntity storageFinishedProductsByBatteryId;
-    private Set<OrdersEntity> ordersByBatteryId;
-    private Set<ProductionAssemblyEntity> productionAssembliesByBatteryId;
-    private Set<BatteryComponentsEntity> batteryComponentsByBatteryId;
+    private StorageFinishedProductsEntity storageFinishedProducts;
+    private Set<OrdersEntity> orders;
+    private Set<ProductionAssemblyEntity> productionAssemblies;
+    private Set<BatteryComponentsEntity> batteryComponents;
 
     @Id
     @Column(name = "BatteryID")
@@ -71,39 +71,39 @@ public class BatteryEntity {
     }
 
     @OneToMany(mappedBy = "batteryId")
-    public Set<OrdersEntity> getOrdersByBatteryId() {
-        return ordersByBatteryId;
+    public Set<OrdersEntity> getOrders() {
+        return orders;
     }
 
-    public void setOrdersByBatteryId(Set<OrdersEntity> ordersByBatteryId) {
-        this.ordersByBatteryId = ordersByBatteryId;
+    public void setOrders(Set<OrdersEntity> ordersByBatteryId) {
+        this.orders = ordersByBatteryId;
     }
 
     @OneToMany(mappedBy = "batteryByBatteryId")
-    public Set<ProductionAssemblyEntity> getProductionAssembliesByBatteryId() {
-        return productionAssembliesByBatteryId;
+    public Set<ProductionAssemblyEntity> getProductionAssemblies() {
+        return productionAssemblies;
     }
 
-    public void setProductionAssembliesByBatteryId(Set<ProductionAssemblyEntity> productionAssembliesByBatteryId) {
-        this.productionAssembliesByBatteryId = productionAssembliesByBatteryId;
+    public void setProductionAssemblies(Set<ProductionAssemblyEntity> productionAssembliesByBatteryId) {
+        this.productionAssemblies = productionAssembliesByBatteryId;
     }
 
     @OneToOne(mappedBy = "batteryByBatteryId")
-    public StorageFinishedProductsEntity getStorageFinishedProductsByBatteryId() {
-        return storageFinishedProductsByBatteryId;
+    public StorageFinishedProductsEntity getStorageFinishedProducts() {
+        return storageFinishedProducts;
     }
 
-    public void setStorageFinishedProductsByBatteryId(StorageFinishedProductsEntity storageFinishedProductsByBatteryId) {
-        this.storageFinishedProductsByBatteryId = storageFinishedProductsByBatteryId;
+    public void setStorageFinishedProducts(StorageFinishedProductsEntity storageFinishedProductsByBatteryId) {
+        this.storageFinishedProducts = storageFinishedProductsByBatteryId;
     }
 
     @OneToMany(mappedBy = "batteryByBatteryId")
-    public Set<BatteryComponentsEntity> getBatteryComponentsByBatteryId() {
-        return batteryComponentsByBatteryId;
+    public Set<BatteryComponentsEntity> getBatteryComponents() {
+        return batteryComponents;
     }
 
-    public void setBatteryComponentsByBatteryId(Set<BatteryComponentsEntity> batteryComponentsByBatteryId) {
-        this.batteryComponentsByBatteryId = batteryComponentsByBatteryId;
+    public void setBatteryComponents(Set<BatteryComponentsEntity> batteryComponentsByBatteryId) {
+        this.batteryComponents = batteryComponentsByBatteryId;
     }
 
     @Override

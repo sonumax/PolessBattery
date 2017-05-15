@@ -66,9 +66,4 @@ public class DBService<T> {
         session.close();
         return answer;
     }
-
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
 }

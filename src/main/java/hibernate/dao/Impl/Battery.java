@@ -13,17 +13,17 @@ public class Battery implements IBattery<BatteryEntity> {
     private final DBService<BatteryEntity> dbService = new DBService<>();
 
     @Override
-    public void addBattery(final BatteryEntity battery) {
+    public void add(final BatteryEntity battery) {
         dbService.insertToDB(battery);
     }
 
     @Override
-    public void updateBattery(final BatteryEntity battery) {
+    public void update(final BatteryEntity battery) {
         dbService.updateInDB(battery);
     }
 
     @Override
-    public void deleteBattery(final BatteryEntity battery) {
+    public void delete(final BatteryEntity battery) {
         dbService.deleteInDB(battery);
     }
 

@@ -7,11 +7,11 @@
       <property name="connection.url">jdbc:sqlserver://localhost:1433;databaseName=PolessBattery</property>
       <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
       <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-      <property name="hibernate.connection.username">root</property>
-      <property name="hibernate.connection.password">root</property>
       <property name="show_sql">true</property>
       <property name="hibernate.current_session_context_class">thread</property>
       <property name="hbm2ddl.auto">update</property>
+      <property name="hibernate.connection.password">root</property>
+      <property name="hibernate.connection.username">root</property>
 
       <mapping class="hibernate.tables.BatteryEntity"/>
       <mapping class="hibernate.tables.BrigadeEntity"/>
@@ -26,6 +26,7 @@
       <mapping class="hibernate.tables.StorageComponentEntity"/>
       <mapping class="hibernate.tables.StorageFinishedProductsEntity"/>
       <mapping class="hibernate.tables.SuppliersEntity"/>
+      <mapping class="hibernate.tables.BatteryComponentsEntity"/>
 
       <!-- DB schema will be updated if needed -->
   </session-factory>

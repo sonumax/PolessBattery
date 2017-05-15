@@ -1,5 +1,7 @@
 package hibernate.tables;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
@@ -16,7 +18,8 @@ public class ProductionAssemblyEntity {
 
     @Id
     @Column(name = "PlanAssemblyID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "productAssem", strategy = "increment")
+    @GeneratedValue(generator = "productAssem")
     public int getPlanAssemblyId() {
         return planAssemblyId;
     }

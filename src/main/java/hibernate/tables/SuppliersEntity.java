@@ -1,5 +1,7 @@
 package hibernate.tables;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +17,8 @@ public class SuppliersEntity {
 
     @Id
     @Column(name = "SupplierID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "supp", strategy = "increment")
+    @GeneratedValue(generator = "supp")
     public int getSupplierId() {
         return supplierId;
     }

@@ -1,20 +1,21 @@
 package hibernate.tables;
 
-import javax.persistence.Entity;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
 @Table(name = "Polarity", schema = "dbo", catalog = "PolessBattery")
-public class PolarityEntity implements Serializable {
+public class PolarityEntity {
     private int polarityId;
     private String namePolarity;
     private Set<BatteryEntity> batteriesByPolarityId;
 
     @Id
+    @GenericGenerator(name = "polar", strategy = "increment")
+    @GeneratedValue(generator = "polar")
     @Column(name = "PolarityID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public int getPolarityId() {
         return polarityId;
     }
@@ -33,7 +34,7 @@ public class PolarityEntity implements Serializable {
         this.namePolarity = namePolarity;
     }
 
-    @OneToMany(mappedBy = "polarityByPolarityId")
+    @OneToMany(mappedBy = "polarityId")
     public Set<BatteryEntity> getBatteriesByPolarityId() {
         return batteriesByPolarityId;
     }

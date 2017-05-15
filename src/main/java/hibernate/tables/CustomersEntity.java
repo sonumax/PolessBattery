@@ -1,5 +1,7 @@
 package hibernate.tables;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,11 +14,12 @@ public class CustomersEntity {
     private String contactPerson;
     private String phone;
     private String eMail;
-    private Set<OrdersEntity> ordersByCustomerId;
+    private Set<OrdersEntity> orders;
 
     @Id
     @Column(name = "CustomerID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "custom", strategy = "increment")
+    @GeneratedValue(generator = "custom")
     public int getCustomerId() {
         return customerId;
     }
@@ -66,7 +69,7 @@ public class CustomersEntity {
     }
 
     @Basic
-    @Column(name = "E-mail")
+    @Column(name = "Mail")
     public String getMail() {
         return eMail;
     }
@@ -75,13 +78,13 @@ public class CustomersEntity {
         this.eMail = eMail;
     }
 
-    @OneToMany(mappedBy = "customersByCustomerId")
-    public Set<OrdersEntity> getOrdersByCustomerId() {
-        return ordersByCustomerId;
+    @OneToMany(mappedBy = "customerId")
+    public Set<OrdersEntity> getOrders() {
+        return orders;
     }
 
-    public void setOrdersByCustomerId(Set<OrdersEntity> ordersByCustomerId) {
-        this.ordersByCustomerId = ordersByCustomerId;
+    public void setOrders(Set<OrdersEntity> ordersByCustomerId) {
+        this.orders = ordersByCustomerId;
     }
 
     @Override

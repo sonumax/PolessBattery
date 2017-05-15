@@ -1,5 +1,7 @@
 package hibernate.tables;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,14 +12,16 @@ public class BatteryEntity {
     private String mark;
     private double capacity;
     private double amperage;
-    private PolarityEntity polarityByPolarityId;
+    private PolarityEntity polarityId;
+    private StorageFinishedProductsEntity storageFinishedProductsByBatteryId;
     private Set<OrdersEntity> ordersByBatteryId;
     private Set<ProductionAssemblyEntity> productionAssembliesByBatteryId;
-    private StorageFinishedProductsEntity storageFinishedProductsByBatteryId;
+    private Set<BatteryComponentsEntity> batteryComponentsByBatteryId;
 
     @Id
     @Column(name = "BatteryID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "batt", strategy = "increment")
+    @GeneratedValue(generator = "batt")
     public int getBatteryId() {
         return batteryId;
     }
@@ -58,15 +62,15 @@ public class BatteryEntity {
 
     @ManyToOne
     @JoinColumn(name = "PolarityID", referencedColumnName = "PolarityID", nullable = false)
-    public PolarityEntity getPolarityByPolarityId() {
-        return polarityByPolarityId;
+    public PolarityEntity getPolarityId() {
+        return polarityId;
     }
 
-    public void setPolarityByPolarityId(PolarityEntity polarityByPolarityId) {
-        this.polarityByPolarityId = polarityByPolarityId;
+    public void setPolarityId(PolarityEntity polarityByPolarityId) {
+        this.polarityId = polarityByPolarityId;
     }
 
-    @OneToMany(mappedBy = "batteryByBatteryId")
+    @OneToMany(mappedBy = "batteryId")
     public Set<OrdersEntity> getOrdersByBatteryId() {
         return ordersByBatteryId;
     }
@@ -91,6 +95,15 @@ public class BatteryEntity {
 
     public void setStorageFinishedProductsByBatteryId(StorageFinishedProductsEntity storageFinishedProductsByBatteryId) {
         this.storageFinishedProductsByBatteryId = storageFinishedProductsByBatteryId;
+    }
+
+    @OneToMany(mappedBy = "batteryByBatteryId")
+    public Set<BatteryComponentsEntity> getBatteryComponentsByBatteryId() {
+        return batteryComponentsByBatteryId;
+    }
+
+    public void setBatteryComponentsByBatteryId(Set<BatteryComponentsEntity> batteryComponentsByBatteryId) {
+        this.batteryComponentsByBatteryId = batteryComponentsByBatteryId;
     }
 
     @Override
@@ -120,6 +133,4 @@ public class BatteryEntity {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
-
-
 }

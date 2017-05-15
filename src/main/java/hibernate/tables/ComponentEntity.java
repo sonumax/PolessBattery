@@ -1,5 +1,7 @@
 package hibernate.tables;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,11 +11,15 @@ public class ComponentEntity {
     private int componentId;
     private String nameComponent;
     private StorageComponentEntity storageComponentByComponentId;
+    private Double price;
     private Set<SuppliersEntity> suppliersByComponentId;
+    private Set<BatteryComponentsEntity> batteryComponentsByComponentId;
+
 
     @Id
     @Column(name = "ComponentID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "comp", strategy = "increment")
+    @GeneratedValue(generator = "comp")
     public int getComponentId() {
         return componentId;
     }
@@ -30,6 +36,16 @@ public class ComponentEntity {
 
     public void setNameComponent(String nameComponent) {
         this.nameComponent = nameComponent;
+    }
+
+    @Basic
+    @Column(name = "Price")
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @OneToOne(mappedBy = "componentByComponentId")
@@ -50,6 +66,15 @@ public class ComponentEntity {
         this.suppliersByComponentId = suppliersByComponentId;
     }
 
+    @OneToMany(mappedBy = "componentByComponentId")
+    public Set<BatteryComponentsEntity> getBatteryComponentsByComponentId() {
+        return batteryComponentsByComponentId;
+    }
+
+    public void setBatteryComponentsByComponentId(Set<BatteryComponentsEntity> batteryComponentsByComponentId) {
+        this.batteryComponentsByComponentId = batteryComponentsByComponentId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,6 +85,7 @@ public class ComponentEntity {
         if (componentId != that.componentId) return false;
         if (nameComponent != null ? !nameComponent.equals(that.nameComponent) : that.nameComponent != null)
             return false;
+        if (price != null ? !price.equals(that.price) : that.price != null) return false;
 
         return true;
     }
@@ -68,6 +94,7 @@ public class ComponentEntity {
     public int hashCode() {
         int result = componentId;
         result = 31 * result + (nameComponent != null ? nameComponent.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
     }
 }

@@ -48,18 +48,6 @@ public class Order implements IOrder<OrdersEntity> {
 
     @Override
     public Collection<OrdersEntity> getOrdersByCustomer(final CustomersEntity customer) {
-//        Session session = sessionFactory.openSession();
-//        CriteriaBuilder builder = session.getCriteriaBuilder();
-//
-//        CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
-//        Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);
-//        criteria.select(ordersRoot);
-//        criteria.where(builder.equal(ordersRoot.get("CustomerID"), customer.getCustomerId()));
-//
-//        List<OrdersEntity> orders = session.createQuery(criteria).getResultList();
-//        session.close();
-//        return orders;
-
         Collection<OrdersEntity> ordersList = dbService.getCollectionResult(builder -> {
             CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
             Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);
@@ -72,33 +60,25 @@ public class Order implements IOrder<OrdersEntity> {
 
     @Override
     public Collection<OrdersEntity> getOrdersByBattery(final BatteryEntity battery) {
-//        Session session = sessionFactory.openSession();
-//        CriteriaBuilder builder = session.getCriteriaBuilder();
-//
-//        CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
-//        Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);
-//        criteria.select(ordersRoot);
-//        criteria.where(builder.equal(ordersRoot.get("BatteryID"), battery.getBatteryId()));
-//
-//        List<OrdersEntity> orders = session.createQuery(criteria).getResultList();
-//        session.close();
-//        return orders;
-        return null;
+        Collection<OrdersEntity> ordersList = dbService.getCollectionResult(builder -> {
+            CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
+            Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);
+            criteria.select(ordersRoot);
+            criteria.where(builder.equal(ordersRoot.get("batteryId"), battery.getBatteryId()));
+            return criteria;
+        });
+        return ordersList;
     }
 
     @Override
     public Collection<OrdersEntity> getOrdersByDate(final Date date) {
-//        Session session = sessionFactory.openSession();
-//        CriteriaBuilder builder = session.getCriteriaBuilder();
-//
-//        CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
-//        Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);
-//        criteria.select(ordersRoot);
-//        criteria.where(builder.equal(ordersRoot.get("DateExecution"), date));
-//
-//        List<OrdersEntity> orders = session.createQuery(criteria).getResultList();
-//        session.close();
-//        return orders;
-        return null;
+        Collection<OrdersEntity> ordersList = dbService.getCollectionResult(builder -> {
+            CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
+            Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);
+            criteria.select(ordersRoot);
+            criteria.where(builder.equal(ordersRoot.get("dateExecution"), date));
+           return criteria;
+        });
+        return ordersList;
     }
 }

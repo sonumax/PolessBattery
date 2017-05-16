@@ -12,7 +12,7 @@ public class SuppliersEntity {
     private String address;
     private String contactPerson;
     private String phone;
-    private String mail;
+    private String eMail;
     private ComponentEntity componentId;
 
     @Id
@@ -68,13 +68,13 @@ public class SuppliersEntity {
     }
 
     @Basic
-    @Column(name = "E-mail")
-    public String getMail() {
-        return mail;
+    @Column(name = "Mail")
+    public String getEMail() {
+        return eMail;
     }
 
-    public void setMail(String eMail) {
-        this.mail = eMail;
+    public void setEMail(String eMail) {
+        this.eMail = eMail;
     }
 
     @ManyToOne
@@ -102,7 +102,7 @@ public class SuppliersEntity {
         if (contactPerson != null ? !contactPerson.equals(that.contactPerson) : that.contactPerson != null)
             return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (mail != null ? !mail.equals(that.mail) : that.mail != null) return false;
+        if (eMail != null ? !eMail.equals(that.eMail) : that.eMail != null) return false;
 
         return true;
     }
@@ -115,7 +115,7 @@ public class SuppliersEntity {
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (contactPerson != null ? contactPerson.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (mail != null ? mail.hashCode() : 0);
+        result = 31 * result + (eMail != null ? eMail.hashCode() : 0);
         return result;
     }
 }

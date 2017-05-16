@@ -8,5 +8,4 @@ public interface IBattery<T> extends BaseCommand<T>{
     Collection<T> getByCapacity(final double capacity);
     Collection<T> getByAmperage(final double amperage);
     Collection<T> getByPolarityId(final int polarityId);
-    Collection<T> getAllCustomers();
 }

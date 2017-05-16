@@ -10,11 +10,11 @@ import java.util.Set;
 public class ComponentEntity {
     private int componentId;
     private String nameComponent;
-    private StorageComponentEntity storageComponentByComponentId;
     private Double price;
+    private String unit;
+    private StorageComponentEntity storageComponentId;
     private Set<SuppliersEntity> suppliersByComponentId;
     private Set<BatteryComponentsEntity> batteryComponentsByComponentId;
-
 
     @Id
     @Column(name = "ComponentID")
@@ -23,6 +23,7 @@ public class ComponentEntity {
     public int getComponentId() {
         return componentId;
     }
+
 
     public void setComponentId(int componentId) {
         this.componentId = componentId;
@@ -48,13 +49,23 @@ public class ComponentEntity {
         this.price = price;
     }
 
-    @OneToOne(mappedBy = "componentByComponentId")
-    public StorageComponentEntity getStorageComponentByComponentId() {
-        return storageComponentByComponentId;
+    @Basic
+    @Column(name = "Unit")
+    public String getUnit() {
+        return unit;
     }
 
-    public void setStorageComponentByComponentId(StorageComponentEntity storageComponentByComponentId) {
-        this.storageComponentByComponentId = storageComponentByComponentId;
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    @OneToOne(mappedBy = "componentId")
+    public StorageComponentEntity getStorageComponentId() {
+        return storageComponentId;
+    }
+
+    public void setStorageComponentId(StorageComponentEntity storageComponentByComponentId) {
+        this.storageComponentId = storageComponentByComponentId;
     }
 
     @OneToMany(mappedBy = "componentId")

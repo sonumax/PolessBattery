@@ -36,7 +36,7 @@ public class Order implements IOrder<OrdersEntity> {
     }
 
     @Override
-    public Collection<OrdersEntity> getAllOrder() {
+    public Collection<OrdersEntity> getAll() {
         Collection<OrdersEntity> ordersList = dbService.getCollectionResult(builder -> {
             CriteriaQuery<OrdersEntity> criteria = builder.createQuery(OrdersEntity.class);
             Root<OrdersEntity> ordersRoot = criteria.from(OrdersEntity.class);

@@ -6,6 +6,7 @@ import hibernate.tables.PolarityEntity;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Collection;
 
 public class Polarity implements IPolarity<PolarityEntity> {
 
@@ -41,5 +42,16 @@ public class Polarity implements IPolarity<PolarityEntity> {
             return criteria;
         });
         return result;
+    }
+
+    @Override
+    public Collection<PolarityEntity> getAll() {
+        Collection<PolarityEntity> ordersList = dbService.getCollectionResult(builder -> {
+            CriteriaQuery<PolarityEntity> criteria = builder.createQuery(PolarityEntity.class);
+            Root<PolarityEntity> ordersRoot = criteria.from(PolarityEntity.class);
+            criteria.select(ordersRoot);
+            return criteria;
+        });
+        return ordersList;
     }
 }

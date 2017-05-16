@@ -1,6 +1,6 @@
 package hibernate.dao.Impl;
 
-import hibernate.dao.Interface.ICustomer;
+import hibernate.dao.Interface.Organization;
 import hibernate.dbService.DBService;
 import hibernate.tables.CustomersEntity;
 
@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Customer implements ICustomer<CustomersEntity> {
+public class Customer implements Organization<CustomersEntity> {
 
     private final DBService<CustomersEntity> dbService = new DBService<>();
 
@@ -28,7 +28,7 @@ public class Customer implements ICustomer<CustomersEntity> {
     }
 
     @Override
-    public CustomersEntity getCustomerById(final int id) {
+    public CustomersEntity getByID(final int id) {
         return dbService.getByID(CustomersEntity.class, id);
     }
 
@@ -93,7 +93,7 @@ public class Customer implements ICustomer<CustomersEntity> {
     }
 
     @Override
-    public Collection<CustomersEntity> getAllCustomers() {
+    public Collection<CustomersEntity> getAll() {
         Collection<CustomersEntity> customers = dbService.getCollectionResult(builder -> {
             CriteriaQuery<CustomersEntity> criteria = builder.createQuery(CustomersEntity.class);
             Root<CustomersEntity> customerRoot = criteria.from(CustomersEntity.class);

@@ -81,7 +81,7 @@ public class Battery implements IBattery<BatteryEntity> {
     }
 
     @Override
-    public Collection<BatteryEntity> getAllCustomers() {
+    public Collection<BatteryEntity> getAll() {
         Collection<BatteryEntity> result = dbService.getCollectionResult(builder -> {
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
             Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);

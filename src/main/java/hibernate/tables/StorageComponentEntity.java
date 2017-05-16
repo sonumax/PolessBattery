@@ -5,19 +5,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "StorageComponent", schema = "dbo", catalog = "PolessBattery")
 public class StorageComponentEntity {
-    private int componentId;
+    private int storageComponentId;
     private double quantityProduct;
     private String unit;
-    private ComponentEntity componentByComponentId;
+    private ComponentEntity componentId;
 
     @Id
     @Column(name = "ComponentID")
-    public int getComponentId() {
-        return componentId;
+    public int getStorageComponentId() {
+        return storageComponentId;
     }
 
-    public void setComponentId(int componentId) {
-        this.componentId = componentId;
+    public void setStorageComponentId(int componentId) {
+        this.storageComponentId = componentId;
     }
 
     @Basic
@@ -42,12 +42,12 @@ public class StorageComponentEntity {
 
     @OneToOne
     @JoinColumn(name = "ComponentID", referencedColumnName = "ComponentID", nullable = false)
-    public ComponentEntity getComponentByComponentId() {
-        return componentByComponentId;
+    public ComponentEntity getComponentId() {
+        return componentId;
     }
 
-    public void setComponentByComponentId(ComponentEntity componentByComponentId) {
-        this.componentByComponentId = componentByComponentId;
+    public void setComponentId(ComponentEntity componentByComponentId) {
+        this.componentId = componentByComponentId;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class StorageComponentEntity {
 
         StorageComponentEntity that = (StorageComponentEntity) o;
 
-        if (componentId != that.componentId) return false;
+        if (storageComponentId != that.storageComponentId) return false;
         if (Double.compare(that.quantityProduct, quantityProduct) != 0) return false;
         if (unit != null ? !unit.equals(that.unit) : that.unit != null) return false;
 
@@ -68,7 +68,7 @@ public class StorageComponentEntity {
     public int hashCode() {
         int result;
         long temp;
-        result = componentId;
+        result = storageComponentId;
         temp = Double.doubleToLongBits(quantityProduct);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (unit != null ? unit.hashCode() : 0);

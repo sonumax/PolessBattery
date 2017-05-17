@@ -97,7 +97,7 @@ public class BatteryEntity {
         this.storageFinishedProducts = storageFinishedProductsByBatteryId;
     }
 
-    @OneToMany(mappedBy = "batteryByBatteryId")
+    @OneToMany(mappedBy = "batteryByBatteryId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<BatteryComponentsEntity> getBatteryComponents() {
         return batteryComponents;
     }
@@ -132,5 +132,19 @@ public class BatteryEntity {
         temp = Double.doubleToLongBits(amperage);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    public double countPrice() {
+        double priceBattery = 0;
+        int countComponent;
+        double priceComponent;
+        ComponentEntity component;
+        for (BatteryComponentsEntity batteryComponents : batteryComponents) {
+            countComponent = batteryComponents.getCountComponents();
+            component = batteryComponents.getComponentByComponentId();
+            priceComponent = component.getPrice();
+            priceBattery += priceComponent * countComponent;
+        }
+        return priceBattery;
     }
 }

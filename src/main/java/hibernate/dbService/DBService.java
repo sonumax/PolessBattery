@@ -62,7 +62,7 @@ public class DBService<T> {
 
     public T getByID(final Class<T> parameter, final int id) {
         Session session = sessionFactory.openSession();
-        T answer = session.load(parameter, id);
+        T answer = session.get(parameter, id);
         session.close();
         return answer;
     }

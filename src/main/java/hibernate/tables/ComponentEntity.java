@@ -13,8 +13,8 @@ public class ComponentEntity {
     private Double price;
     private String unit;
     private StorageComponentEntity storageComponentId;
-    private Set<SuppliersEntity> suppliersByComponentId;
-    private Set<BatteryComponentsEntity> batteryComponentsByComponentId;
+    private Set<SuppliersEntity> suppliers;
+    private Set<BatteryComponentsEntity> batteryComponents;
 
     @Id
     @Column(name = "ComponentID")
@@ -59,31 +59,31 @@ public class ComponentEntity {
         this.unit = unit;
     }
 
-    @OneToOne(mappedBy = "componentId")
+    @OneToOne(mappedBy = "component")
     public StorageComponentEntity getStorageComponentId() {
         return storageComponentId;
     }
 
-    public void setStorageComponentId(StorageComponentEntity storageComponentByComponentId) {
-        this.storageComponentId = storageComponentByComponentId;
+    public void setStorageComponentId(StorageComponentEntity storageComponent) {
+        this.storageComponentId = storageComponent;
     }
 
-    @OneToMany(mappedBy = "componentId")
-    public Set<SuppliersEntity> getSuppliersByComponentId() {
-        return suppliersByComponentId;
+    @OneToMany(mappedBy = "component")
+    public Set<SuppliersEntity> getSuppliers() {
+        return suppliers;
     }
 
-    public void setSuppliersByComponentId(Set<SuppliersEntity> suppliersByComponentId) {
-        this.suppliersByComponentId = suppliersByComponentId;
+    public void setSuppliers(Set<SuppliersEntity> suppliers) {
+        this.suppliers = suppliers;
     }
 
-    @OneToMany(mappedBy = "componentByComponentId")
-    public Set<BatteryComponentsEntity> getBatteryComponentsByComponentId() {
-        return batteryComponentsByComponentId;
+    @OneToMany(mappedBy = "component")
+    public Set<BatteryComponentsEntity> getBatteryComponents() {
+        return batteryComponents;
     }
 
-    public void setBatteryComponentsByComponentId(Set<BatteryComponentsEntity> batteryComponentsByComponentId) {
-        this.batteryComponentsByComponentId = batteryComponentsByComponentId;
+    public void setBatteryComponents(Set<BatteryComponentsEntity> batteryComponents) {
+        this.batteryComponents = batteryComponents;
     }
 
     @Override

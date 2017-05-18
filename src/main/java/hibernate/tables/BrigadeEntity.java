@@ -8,9 +8,9 @@ import java.util.Set;
 public class BrigadeEntity {
     private String brigadeId;
     private int quantityEmployee;
-    private Set<EmployeesEntity> employeesByBrigadeId;
-    private Set<ProductionAssemblyEntity> productionAssembliesByBrigadeId;
-    private Set<ProductionPackagingEntity> productionPackagingsByBrigadeId;
+    private Set<EmployeesEntity> employees;
+    private Set<ProductionAssemblyEntity> productionAssemblies;
+    private Set<ProductionPackagingEntity> productionPackagings;
 
     @Id
     @Column(name = "BrigadeID")
@@ -32,31 +32,31 @@ public class BrigadeEntity {
         this.quantityEmployee = quantityEmployee;
     }
 
-    @OneToMany(mappedBy = "brigadeByBrigadeId")
-    public Set<EmployeesEntity> getEmployeesByBrigadeId() {
-        return employeesByBrigadeId;
+    @OneToMany(mappedBy = "brigade")
+    public Set<EmployeesEntity> getEmployees() {
+        return employees;
     }
 
-    public void setEmployeesByBrigadeId(Set<EmployeesEntity> employeesByBrigadeId) {
-        this.employeesByBrigadeId = employeesByBrigadeId;
+    public void setEmployees(Set<EmployeesEntity> employees) {
+        this.employees = employees;
     }
 
-    @OneToMany(mappedBy = "brigadeByBrigadeId")
-    public Set<ProductionAssemblyEntity> getProductionAssembliesByBrigadeId() {
-        return productionAssembliesByBrigadeId;
+    @OneToMany(mappedBy = "brigade")
+    public Set<ProductionAssemblyEntity> getProductionAssemblies() {
+        return productionAssemblies;
     }
 
-    public void setProductionAssembliesByBrigadeId(Set<ProductionAssemblyEntity> productionAssembliesByBrigadeId) {
-        this.productionAssembliesByBrigadeId = productionAssembliesByBrigadeId;
+    public void setProductionAssemblies(Set<ProductionAssemblyEntity> productionAssemblies) {
+        this.productionAssemblies = productionAssemblies;
     }
 
-    @OneToMany(mappedBy = "brigadeByBrigadeId")
-    public Set<ProductionPackagingEntity> getProductionPackagingsByBrigadeId() {
-        return productionPackagingsByBrigadeId;
+    @OneToMany(mappedBy = "brigade")
+    public Set<ProductionPackagingEntity> getProductionPackagings() {
+        return productionPackagings;
     }
 
-    public void setProductionPackagingsByBrigadeId(Set<ProductionPackagingEntity> productionPackagingsByBrigadeId) {
-        this.productionPackagingsByBrigadeId = productionPackagingsByBrigadeId;
+    public void setProductionPackagings(Set<ProductionPackagingEntity> productionPackagings) {
+        this.productionPackagings = productionPackagings;
     }
 
     @Override

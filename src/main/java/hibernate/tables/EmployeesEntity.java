@@ -18,7 +18,7 @@ public class EmployeesEntity {
     private String phone;
     private String eMail;
     private Date dateRecruitment;
-    private BrigadeEntity brigadeByBrigadeId;
+    private BrigadeEntity brigade;
 
     @Id
     @Column(name = "EmployeeID")
@@ -125,12 +125,12 @@ public class EmployeesEntity {
 
     @ManyToOne
     @JoinColumn(name = "BrigadeID", referencedColumnName = "BrigadeID", nullable = false)
-    public BrigadeEntity getBrigadeByBrigadeId() {
-        return brigadeByBrigadeId;
+    public BrigadeEntity getBrigade() {
+        return brigade;
     }
 
-    public void setBrigadeByBrigadeId(BrigadeEntity brigadeByBrigadeId) {
-        this.brigadeByBrigadeId = brigadeByBrigadeId;
+    public void setBrigade(BrigadeEntity brigade) {
+        this.brigade = brigade;
     }
 
     @Override

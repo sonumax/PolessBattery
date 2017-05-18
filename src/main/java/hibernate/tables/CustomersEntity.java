@@ -78,13 +78,13 @@ public class CustomersEntity {
         this.eMail = eMail;
     }
 
-    @OneToMany(mappedBy = "customerId")
+    @OneToMany(mappedBy = "customer")
     public Set<OrdersEntity> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<OrdersEntity> ordersByCustomerId) {
-        this.orders = ordersByCustomerId;
+    public void setOrders(Set<OrdersEntity> orders) {
+        this.orders = orders;
     }
 
     @Override

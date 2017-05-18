@@ -12,7 +12,7 @@ public class BatteryEntity {
     private String mark;
     private double capacity;
     private double amperage;
-    private PolarityEntity polarityId;
+    private PolarityEntity polarity;
     private StorageFinishedProductsEntity storageFinishedProducts;
     private Set<OrdersEntity> orders;
     private Set<ProductionAssemblyEntity> productionAssemblies;
@@ -62,15 +62,15 @@ public class BatteryEntity {
 
     @ManyToOne
     @JoinColumn(name = "PolarityID", referencedColumnName = "PolarityID", nullable = false)
-    public PolarityEntity getPolarityId() {
-        return polarityId;
+    public PolarityEntity getPolarity() {
+        return polarity;
     }
 
-    public void setPolarityId(PolarityEntity polarityByPolarityId) {
-        this.polarityId = polarityByPolarityId;
+    public void setPolarity(PolarityEntity polarityByPolarityId) {
+        this.polarity = polarityByPolarityId;
     }
 
-    @OneToMany(mappedBy = "batteryId")
+    @OneToMany(mappedBy = "battery")
     public Set<OrdersEntity> getOrders() {
         return orders;
     }
@@ -79,7 +79,7 @@ public class BatteryEntity {
         this.orders = ordersByBatteryId;
     }
 
-    @OneToMany(mappedBy = "batteryByBatteryId")
+    @OneToMany(mappedBy = "battery")
     public Set<ProductionAssemblyEntity> getProductionAssemblies() {
         return productionAssemblies;
     }
@@ -88,7 +88,7 @@ public class BatteryEntity {
         this.productionAssemblies = productionAssembliesByBatteryId;
     }
 
-    @OneToOne(mappedBy = "batteryByBatteryId")
+    @OneToOne(mappedBy = "battery")
     public StorageFinishedProductsEntity getStorageFinishedProducts() {
         return storageFinishedProducts;
     }
@@ -97,7 +97,7 @@ public class BatteryEntity {
         this.storageFinishedProducts = storageFinishedProductsByBatteryId;
     }
 
-    @OneToMany(mappedBy = "batteryByBatteryId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "battery", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<BatteryComponentsEntity> getBatteryComponents() {
         return batteryComponents;
     }
@@ -141,7 +141,7 @@ public class BatteryEntity {
         ComponentEntity component;
         for (BatteryComponentsEntity batteryComponents : batteryComponents) {
             countComponent = batteryComponents.getCountComponents();
-            component = batteryComponents.getComponentByComponentId();
+            component = batteryComponents.getComponent();
             priceComponent = component.getPrice();
             priceBattery += priceComponent * countComponent;
         }

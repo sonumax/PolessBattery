@@ -11,8 +11,8 @@ public class ProductionPackagingEntity {
     private int planPackagingId;
     private double quantityFinishProduct;
     private Date dateAssembly;
-    private ProductionAssemblyEntity productionAssemblyByPlanAssemblyId;
-    private BrigadeEntity brigadeByBrigadeId;
+    private ProductionAssemblyEntity productionAssembly;
+    private BrigadeEntity brigade;
 
     @Id
     @Column(name = "PlanPackagingID")
@@ -48,22 +48,22 @@ public class ProductionPackagingEntity {
 
     @ManyToOne
     @JoinColumn(name = "PlanAssemblyID", referencedColumnName = "PlanAssemblyID", nullable = false)
-    public ProductionAssemblyEntity getProductionAssemblyByPlanAssemblyId() {
-        return productionAssemblyByPlanAssemblyId;
+    public ProductionAssemblyEntity getProductionAssembly() {
+        return productionAssembly;
     }
 
-    public void setProductionAssemblyByPlanAssemblyId(ProductionAssemblyEntity productionAssemblyByPlanAssemblyId) {
-        this.productionAssemblyByPlanAssemblyId = productionAssemblyByPlanAssemblyId;
+    public void setProductionAssembly(ProductionAssemblyEntity productionAssembly) {
+        this.productionAssembly = productionAssembly;
     }
 
     @ManyToOne
     @JoinColumn(name = "BrigadeID", referencedColumnName = "BrigadeID", nullable = false)
-    public BrigadeEntity getBrigadeByBrigadeId() {
-        return brigadeByBrigadeId;
+    public BrigadeEntity getBrigade() {
+        return brigade;
     }
 
-    public void setBrigadeByBrigadeId(BrigadeEntity brigadeByBrigadeId) {
-        this.brigadeByBrigadeId = brigadeByBrigadeId;
+    public void setBrigade(BrigadeEntity brigade) {
+        this.brigade = brigade;
     }
 
     @Override

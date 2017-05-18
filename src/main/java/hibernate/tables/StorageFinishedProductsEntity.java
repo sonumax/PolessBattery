@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class StorageFinishedProductsEntity {
     private int batteryId;
     private double quantityProduct;
-    private BatteryEntity batteryByBatteryId;
+    private BatteryEntity battery;
 
     @Id
     @Column(name = "BatteryID")
@@ -31,12 +31,12 @@ public class StorageFinishedProductsEntity {
 
     @OneToOne
     @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
-    public BatteryEntity getBatteryByBatteryId() {
-        return batteryByBatteryId;
+    public BatteryEntity getBattery() {
+        return battery;
     }
 
-    public void setBatteryByBatteryId(BatteryEntity batteryByBatteryId) {
-        this.batteryByBatteryId = batteryByBatteryId;
+    public void setBattery(BatteryEntity battery) {
+        this.battery = battery;
     }
 
     @Override

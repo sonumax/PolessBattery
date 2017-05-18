@@ -10,7 +10,7 @@ import java.util.Set;
 public class PolarityEntity {
     private int polarityId;
     private String namePolarity;
-    private Set<BatteryEntity> batteriesByPolarityId;
+    private Set<BatteryEntity> batteries;
 
     @Id
     @GenericGenerator(name = "polar", strategy = "increment")
@@ -34,13 +34,13 @@ public class PolarityEntity {
         this.namePolarity = namePolarity;
     }
 
-    @OneToMany(mappedBy = "polarityId")
-    public Set<BatteryEntity> getBatteriesByPolarityId() {
-        return batteriesByPolarityId;
+    @OneToMany(mappedBy = "polarity")
+    public Set<BatteryEntity> getBatteries() {
+        return batteries;
     }
 
-    public void setBatteriesByPolarityId(Set<BatteryEntity> batteriesByPolarityId) {
-        this.batteriesByPolarityId = batteriesByPolarityId;
+    public void setBatteries(Set<BatteryEntity> batteries) {
+        this.batteries = batteries;
     }
 
     @Override

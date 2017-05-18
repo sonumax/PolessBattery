@@ -12,9 +12,9 @@ public class ProductionAssemblyEntity {
     private int planAssemblyId;
     private double quantityFinishProduct;
     private Date dateAssembly;
-    private BatteryEntity batteryByBatteryId;
-    private BrigadeEntity brigadeByBrigadeId;
-    private Set<ProductionPackagingEntity> productionPackagingsByPlanAssemblyId;
+    private BatteryEntity battery;
+    private BrigadeEntity brigade;
+    private Set<ProductionPackagingEntity> productionPackagings;
 
     @Id
     @Column(name = "PlanAssemblyID")
@@ -50,31 +50,31 @@ public class ProductionAssemblyEntity {
 
     @ManyToOne
     @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
-    public BatteryEntity getBatteryByBatteryId() {
-        return batteryByBatteryId;
+    public BatteryEntity getBattery() {
+        return battery;
     }
 
-    public void setBatteryByBatteryId(BatteryEntity batteryByBatteryId) {
-        this.batteryByBatteryId = batteryByBatteryId;
+    public void setBattery(BatteryEntity battery) {
+        this.battery = battery;
     }
 
     @ManyToOne
     @JoinColumn(name = "BrigadeID", referencedColumnName = "BrigadeID", nullable = false)
-    public BrigadeEntity getBrigadeByBrigadeId() {
-        return brigadeByBrigadeId;
+    public BrigadeEntity getBrigade() {
+        return brigade;
     }
 
-    public void setBrigadeByBrigadeId(BrigadeEntity brigadeByBrigadeId) {
-        this.brigadeByBrigadeId = brigadeByBrigadeId;
+    public void setBrigade(BrigadeEntity brigade) {
+        this.brigade = brigade;
     }
 
-    @OneToMany(mappedBy = "productionAssemblyByPlanAssemblyId")
-    public Set<ProductionPackagingEntity> getProductionPackagingsByPlanAssemblyId() {
-        return productionPackagingsByPlanAssemblyId;
+    @OneToMany(mappedBy = "productionAssembly")
+    public Set<ProductionPackagingEntity> getProductionPackagings() {
+        return productionPackagings;
     }
 
-    public void setProductionPackagingsByPlanAssemblyId(Set<ProductionPackagingEntity> productionPackagingsByPlanAssemblyId) {
-        this.productionPackagingsByPlanAssemblyId = productionPackagingsByPlanAssemblyId;
+    public void setProductionPackagings(Set<ProductionPackagingEntity> productionPackagings) {
+        this.productionPackagings = productionPackagings;
     }
 
     @Override

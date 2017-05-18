@@ -8,7 +8,7 @@ public class StorageComponentEntity {
     private int storageComponentId;
     private double quantityProduct;
     private String unit;
-    private ComponentEntity componentId;
+    private ComponentEntity component;
 
     @Id
     @Column(name = "ComponentID")
@@ -42,12 +42,12 @@ public class StorageComponentEntity {
 
     @OneToOne
     @JoinColumn(name = "ComponentID", referencedColumnName = "ComponentID", nullable = false)
-    public ComponentEntity getComponentId() {
-        return componentId;
+    public ComponentEntity getComponent() {
+        return component;
     }
 
-    public void setComponentId(ComponentEntity componentByComponentId) {
-        this.componentId = componentByComponentId;
+    public void setComponent(ComponentEntity component) {
+        this.component = component;
     }
 
     @Override

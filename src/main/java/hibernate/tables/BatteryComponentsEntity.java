@@ -9,8 +9,8 @@ public class BatteryComponentsEntity  implements Serializable {
     private int batteryId;
     private int componentId;
     private int countComponents;
-    private BatteryEntity batteryByBatteryId;
-    private ComponentEntity componentByComponentId;
+    private BatteryEntity battery;
+    private ComponentEntity component;
 
     @Id
     @Column(name = "BatteryID")
@@ -34,22 +34,22 @@ public class BatteryComponentsEntity  implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
-    public BatteryEntity getBatteryByBatteryId() {
-        return batteryByBatteryId;
+    public BatteryEntity getBattery() {
+        return battery;
     }
 
-    public void setBatteryByBatteryId(BatteryEntity batteryByBatteryId) {
-        this.batteryByBatteryId = batteryByBatteryId;
+    public void setBattery(BatteryEntity battery) {
+        this.battery = battery;
     }
 
     @ManyToOne
     @JoinColumn(name = "ComponentId", referencedColumnName = "ComponentID", nullable = false)
-    public ComponentEntity getComponentByComponentId() {
-        return componentByComponentId;
+    public ComponentEntity getComponent() {
+        return component;
     }
 
-    public void setComponentByComponentId(ComponentEntity componentByComponentId) {
-        this.componentByComponentId = componentByComponentId;
+    public void setComponent(ComponentEntity component) {
+        this.component = component;
     }
 
     @Basic

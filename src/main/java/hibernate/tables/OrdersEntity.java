@@ -11,8 +11,8 @@ public class OrdersEntity {
     private int orderId;
     private double quantityProduct;
     private Date dateExecution;
-    private CustomersEntity customerId;
-    private BatteryEntity batteryId;
+    private CustomersEntity customer;
+    private BatteryEntity battery;
 
     @Id
     @Column(name = "OrderID")
@@ -48,22 +48,22 @@ public class OrdersEntity {
 
     @ManyToOne
     @JoinColumn(name = "CustomerID", referencedColumnName = "CustomerID", nullable = false)
-    public CustomersEntity getCustomerId() {
-        return customerId;
+    public CustomersEntity getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(CustomersEntity customersByCustomerId) {
-        this.customerId = customersByCustomerId;
+    public void setCustomer(CustomersEntity customers) {
+        this.customer = customers;
     }
 
     @ManyToOne
     @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
-    public BatteryEntity getBatteryId() {
-        return batteryId;
+    public BatteryEntity getBattery() {
+        return battery;
     }
 
-    public void setBatteryId(BatteryEntity batteryByBatteryId) {
-        this.batteryId = batteryByBatteryId;
+    public void setBattery(BatteryEntity battery) {
+        this.battery = battery;
     }
 
     @Override

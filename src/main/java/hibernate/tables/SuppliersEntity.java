@@ -13,7 +13,7 @@ public class SuppliersEntity {
     private String contactPerson;
     private String phone;
     private String eMail;
-    private ComponentEntity componentId;
+    private ComponentEntity component;
 
     @Id
     @Column(name = "SupplierID")
@@ -79,12 +79,12 @@ public class SuppliersEntity {
 
     @ManyToOne
     @JoinColumn(name = "ComponentID", referencedColumnName = "ComponentID", nullable = false)
-    public ComponentEntity getComponentId() {
-        return componentId;
+    public ComponentEntity getComponent() {
+        return component;
     }
 
-    public void setComponentId(ComponentEntity componentByComponentId) {
-        this.componentId = componentByComponentId;
+    public void setComponent(ComponentEntity component) {
+        this.component = component;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class SuppliersEntity {
         SuppliersEntity that = (SuppliersEntity) o;
 
         if (supplierId != that.supplierId) return false;
-        if (componentId != that.componentId) return false;
+        if (component != that.component) return false;
         if (organizationName != null ? !organizationName.equals(that.organizationName) : that.organizationName != null)
             return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
@@ -110,7 +110,7 @@ public class SuppliersEntity {
     @Override
     public int hashCode() {
         int result = supplierId;
-        result = 31 * result + componentId.getComponentId();
+        result = 31 * result + component.getComponentId();
         result = 31 * result + (organizationName != null ? organizationName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (contactPerson != null ? contactPerson.hashCode() : 0);

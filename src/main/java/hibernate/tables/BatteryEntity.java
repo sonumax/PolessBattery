@@ -10,8 +10,8 @@ import java.util.Set;
 public class BatteryEntity {
     private int batteryId;
     private String mark;
-    private double capacity;
-    private double amperage;
+    private int capacity;
+    private int amperage;
     private PolarityEntity polarity;
     private StorageFinishedProductsEntity storageFinishedProducts;
     private Set<OrdersEntity> orders;
@@ -42,21 +42,21 @@ public class BatteryEntity {
 
     @Basic
     @Column(name = "Capacity")
-    public double getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(double capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 
     @Basic
     @Column(name = "Amperage")
-    public double getAmperage() {
+    public int getAmperage() {
         return amperage;
     }
 
-    public void setAmperage(double amperage) {
+    public void setAmperage(int amperage) {
         this.amperage = amperage;
     }
 
@@ -66,8 +66,8 @@ public class BatteryEntity {
         return polarity;
     }
 
-    public void setPolarity(PolarityEntity polarityByPolarityId) {
-        this.polarity = polarityByPolarityId;
+    public void setPolarity(PolarityEntity polarity) {
+        this.polarity = polarity;
     }
 
     @OneToMany(mappedBy = "battery")
@@ -84,8 +84,8 @@ public class BatteryEntity {
         return productionAssemblies;
     }
 
-    public void setProductionAssemblies(Set<ProductionAssemblyEntity> productionAssembliesByBatteryId) {
-        this.productionAssemblies = productionAssembliesByBatteryId;
+    public void setProductionAssemblies(Set<ProductionAssemblyEntity> productionAssemblies) {
+        this.productionAssemblies = productionAssemblies;
     }
 
     @OneToOne(mappedBy = "battery")
@@ -93,8 +93,8 @@ public class BatteryEntity {
         return storageFinishedProducts;
     }
 
-    public void setStorageFinishedProducts(StorageFinishedProductsEntity storageFinishedProductsByBatteryId) {
-        this.storageFinishedProducts = storageFinishedProductsByBatteryId;
+    public void setStorageFinishedProducts(StorageFinishedProductsEntity storageFinishedProducts) {
+        this.storageFinishedProducts = storageFinishedProducts;
     }
 
     @OneToMany(mappedBy = "battery", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -102,8 +102,8 @@ public class BatteryEntity {
         return batteryComponents;
     }
 
-    public void setBatteryComponents(Set<BatteryComponentsEntity> batteryComponentsByBatteryId) {
-        this.batteryComponents = batteryComponentsByBatteryId;
+    public void setBatteryComponents(Set<BatteryComponentsEntity> batteryComponents) {
+        this.batteryComponents = batteryComponents;
     }
 
     @Override

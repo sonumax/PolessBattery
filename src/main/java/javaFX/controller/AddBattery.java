@@ -43,11 +43,12 @@ public class AddBattery {
     @FXML
     private void initialize() {
         fillChoiceBox();
+        selectFirstItem();
     }
 
-    public void inputNumber(KeyEvent keyEvent) {
-        char c = keyEvent.getCharacter().charAt(0);
-        if ((c < '0') || (c > '9')) {
+    public void inputTextOnlyNumber(KeyEvent keyEvent) {
+        char key = keyEvent.getCharacter().charAt(0);
+        if ((key < '0') || (key > '9')) {
             keyEvent.consume();
         }
     }
@@ -60,13 +61,10 @@ public class AddBattery {
 
     public void actionSave(ActionEvent actionEvent) {
         if(!checkValues()) {
-            DialogManager.showInfoDialog("Ошибка", "Заполните все поля");
             return;
         }
         addNewBattery();
-        System.out.println("Add");
         actionClose(actionEvent);
-
     }
 
     private void addNewBattery() {
@@ -77,7 +75,7 @@ public class AddBattery {
         setBatteryComponents(newBattery);
     }
 
-    private void setBatteryCharacteristics(BatteryEntity newBattery) {
+    private void setBatteryCharacteristics(final BatteryEntity newBattery) {
         newBattery.setMark(txtfMark.getText());
         newBattery.setCapacity(Integer.valueOf(txtfCapacity.getText()));
         newBattery.setAmperage(Integer.valueOf(txtfAmperage.getText()));
@@ -86,30 +84,27 @@ public class AddBattery {
         newBattery.setPolarity(polarityDAO.getByName(chcbPolarity.getValue()));
     }
 
-    private void setBatteryComponents(BatteryEntity newBattery) {
+    private void setBatteryComponents(final BatteryEntity newBattery) {
         BatteryComponentDAO batteryComponentDAO = new BatteryComponentDAO();
         ComponentDAO componentDAO = new ComponentDAO();
-        Collection<ComponentEntity> componentEntities = componentDAO.getAll();
-        for (ComponentEntity componentEntity : componentEntities) {
-            String nameComponent = componentEntity.getNameComponent();
+
+        Collection<ComponentEntity> allComponents = componentDAO.getAll();
+        for (ComponentEntity component : allComponents) {
+            String nameComponent = component.getNameComponent();
             int count = getCountComponent(nameComponent);
             if (count == 0) {
-                return;
+                continue;
             }
-            BatteryComponentsEntity batteryComponentsEntity = new BatteryComponentsEntity();
-            batteryComponentsEntity.setBattery(newBattery);
-            batteryComponentsEntity.setComponent(componentEntity);
-            batteryComponentsEntity.setCountComponents(count);
-            batteryComponentDAO.add(batteryComponentsEntity);
-//            batteryComponentsEntities.add(createBatteryComponent(newBattery, componentEntity, count));
+            BatteryComponentsEntity newBatteryComponent = createBatteryComponent(newBattery, component, count);
+            batteryComponentDAO.add(newBatteryComponent);
         }
     }
 
     private int getCountComponent(String nameComponent) {
-        int count = 0;
+        int countComponent = 0;
         switch (nameComponent) {
             case "Сплав свинца":
-                count = Integer.valueOf(txtfLead.getText());
+                countComponent = Integer.valueOf(txtfLead.getText());
                 break;
             case "Блок":
             case "Крышка":
@@ -120,71 +115,71 @@ public class AddBattery {
             case "Листавой картон":
             case "Манипуляционные знаки":
             case "Бланк сертификата качества":
-                count = 1;
+                countComponent = 1;
                 break;
             case "Положительная пластина":
-                count = Integer.valueOf(txtfPlatePlus.getText());
+                countComponent = Integer.valueOf(txtfPlatePlus.getText());
                 break;
             case "Отрицательная пластина":
-                count = Integer.valueOf(txtfPlateMinus.getText());
+                countComponent = Integer.valueOf(txtfPlateMinus.getText());
                 break;
             case "Сепараторная лента":
-                count = Integer.valueOf(txtfSeparator.getText());
+                countComponent = Integer.valueOf(txtfSeparator.getText());
                 break;
             case "Вкладыш":
                 if (!chkLiner.isSelected()) {
                     return 0;
                 }
-                count = 6;
+                countComponent = 6;
                 break;
             case "Ручка":
-                count = chcbHandle.getValue();
+                countComponent = chcbHandle.getValue();
                 break;
             case "Накладка":
                 if (chcbPatch.getValue().equals("Накладка")) {
-                    count = 1;
+                    countComponent = 1;
                 }
                 break;
             case "Красный колпачок":
                 if (chcbPatch.getValue().equals("Колпачки")) {
-                    count = 1;
+                    countComponent = 1;
                 }
                 break;
             case "Чёрный колпачок":
                 if (chcbPatch.getValue().equals("Колпачки")) {
-                    count = 1;
+                    countComponent = 1;
                 }
                 break;
             case "Пробка":
-                count = 6;
+                countComponent = 6;
                 break;
             case "Индикатор заряда АКБ":
                 if (!chkbIndicator.isSelected()) {
                     return 0;
                 }
-                count = 1;
+                countComponent = 1;
                 break;
             case "Стрейч-плёнка":
-                count = 5;
+                countComponent = 5;
                 break;
         }
-        return count;
+        return countComponent;
     }
 
-    private BatteryComponentsEntity createBatteryComponent(BatteryEntity battery, ComponentEntity component, int count) {
-        BatteryComponentsEntity batteryComponentsEntity = new BatteryComponentsEntity();
-        batteryComponentsEntity.setBattery(battery);
-        batteryComponentsEntity.setComponent(component);
-        batteryComponentsEntity.setCountComponents(count);
-        return batteryComponentsEntity;
+    private BatteryComponentsEntity createBatteryComponent(final BatteryEntity battery, final ComponentEntity component, final int count) {
+        BatteryComponentsEntity newBatteryComponent = new BatteryComponentsEntity();
+        newBatteryComponent.setBatteryId(battery.getBatteryId());
+        newBatteryComponent.setComponentId(component.getComponentId());
+        newBatteryComponent.setCountComponents(count);
+        return newBatteryComponent;
     }
 
     private boolean checkValues() {
         if (txtfMark.getText().trim().length()==0 || txtfCapacity.getText().trim().length()==0 ||
                 txtfAmperage.getText().trim().length() == 0 || txtfLead.getText().trim().length() == 0 ||
                 txtfSeparator.getText().trim().length() == 0 || txtfPlatePlus.getText().trim().length() == 0 ||
-                txtfPlateMinus.getText().trim().length() == 0 || chcbPolarity.getValue().trim().length() == 0 ||
-                chcbPatch.getValue().trim().length() == 0){
+                txtfPlateMinus.getText().trim().length() == 0){
+            DialogManager.showErrorDialog("Ошибка", "Заполните все поля");
             return false;
         }
         return true;
@@ -202,7 +197,6 @@ public class AddBattery {
         for (PolarityEntity polarityEntity : polarityDAO.getAll()) {
             polaritySet.add(polarityEntity.getNamePolarity());
         }
-
         chcbPolarity.setItems(FXCollections.observableArrayList(polaritySet));
     }
 
@@ -211,7 +205,6 @@ public class AddBattery {
         handleSet.add(0);
         handleSet.add(1);
         handleSet.add(2);
-
         chcbHandle.setItems(FXCollections.observableArrayList(handleSet));
     }
 
@@ -220,5 +213,11 @@ public class AddBattery {
         patchSet.add("Накладка");
         patchSet.add("Колпачки");
         chcbPatch.setItems(FXCollections.observableArrayList(patchSet));
+    }
+
+    private void selectFirstItem() {
+        chcbPatch.getSelectionModel().selectFirst();
+        chcbHandle.getSelectionModel().selectFirst();
+        chcbPolarity.getSelectionModel().selectFirst();
     }
 }

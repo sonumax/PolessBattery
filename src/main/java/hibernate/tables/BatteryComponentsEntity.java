@@ -1,11 +1,12 @@
 package hibernate.tables;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Battery_Components", schema = "dbo", catalog = "PolessBattery")
-public class BatteryComponentsEntity  implements Serializable {
+@IdClass(BatteryComponentsEntityPK.class)
+public class BatteryComponentsEntity {
+
     private int batteryId;
     private int componentId;
     private int countComponents;
@@ -13,7 +14,10 @@ public class BatteryComponentsEntity  implements Serializable {
     private ComponentEntity component;
 
     @Id
-    @Column(name = "BatteryID")
+    @AttributeOverrides({
+            @AttributeOverride(name = "batteryId", column = @Column(name= "batteryID")),
+            @AttributeOverride(name = "componentId", column = @Column(name= "componentId"))
+    })
     public int getBatteryId() {
         return batteryId;
     }
@@ -22,8 +26,6 @@ public class BatteryComponentsEntity  implements Serializable {
         this.batteryId = batteryId;
     }
 
-    @Id
-    @Column(name = "ComponentId")
     public int getComponentId() {
         return componentId;
     }
@@ -33,7 +35,7 @@ public class BatteryComponentsEntity  implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "BatteryID", referencedColumnName = "BatteryID", nullable = false)
+    @JoinColumn(name = "batteryID", referencedColumnName = "BatteryID", updatable = false, insertable=false)
     public BatteryEntity getBattery() {
         return battery;
     }
@@ -43,7 +45,7 @@ public class BatteryComponentsEntity  implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ComponentId", referencedColumnName = "ComponentID", nullable = false)
+    @JoinColumn(name = "componentId", referencedColumnName = "ComponentID", updatable = false, insertable=false)
     public ComponentEntity getComponent() {
         return component;
     }

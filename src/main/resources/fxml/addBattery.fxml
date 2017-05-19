@@ -31,7 +31,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtfCapacity" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="196.0">
+            <TextField fx:id="txtfCapacity" onKeyTyped="#inputTextOnlyNumber" prefHeight="31.0" prefWidth="196.0">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
@@ -54,7 +54,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtfAmperage" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="152.0">
+            <TextField fx:id="txtfAmperage" onKeyTyped="#inputTextOnlyNumber" prefHeight="31.0" prefWidth="152.0">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
@@ -87,7 +87,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtfLead" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="131.0">
+            <TextField fx:id="txtfLead" onKeyTyped="#inputTextOnlyNumber" prefHeight="31.0" prefWidth="131.0">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin>
@@ -100,7 +100,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtfSeparator" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="160.0">
+            <TextField fx:id="txtfSeparator" onKeyTyped="#inputTextOnlyNumber" prefHeight="31.0" prefWidth="160.0">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin>
@@ -117,7 +117,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtfPlatePlus" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="136.0">
+            <TextField fx:id="txtfPlatePlus" onKeyTyped="#inputTextOnlyNumber" prefHeight="31.0" prefWidth="136.0">
                <HBox.margin>
                   <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
                </HBox.margin>
@@ -130,7 +130,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txtfPlateMinus" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="145.0">
+            <TextField fx:id="txtfPlateMinus" onKeyTyped="#inputTextOnlyNumber" prefHeight="31.0" prefWidth="145.0">
                <HBox.margin>
                   <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
                </HBox.margin>

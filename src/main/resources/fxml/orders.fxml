@@ -18,22 +18,22 @@
    <children>
       <HBox maxHeight="50.0" prefHeight="50.0" prefWidth="946.0">
          <children>
-            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#showDialog" prefWidth="120.0" text="Добавить">
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Добавить">
                <HBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnChange" mnemonicParsing="false" onAction="#showDialog" prefWidth="120.0" text="Изменить">
+            <Button fx:id="btnChange" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Изменить">
                <HBox.margin>
                   <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#showDialog" prefWidth="120.0" text="Удалить">
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Удалить">
                <HBox.margin>
                   <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnPrice" mnemonicParsing="false" onAction="#showDialog" prefWidth="120.0" text="Стоимость">
+            <Button fx:id="btnPrice" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Стоимость">
                <HBox.margin>
                   <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
                </HBox.margin>

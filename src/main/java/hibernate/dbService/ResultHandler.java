@@ -5,5 +5,5 @@ import javax.persistence.criteria.CriteriaQuery;
 
 @FunctionalInterface
 public interface ResultHandler<T> {
-    CriteriaQuery<T> handle(CriteriaBuilder builder);
+    CriteriaQuery<T> createCriteria(CriteriaBuilder builder);
 }

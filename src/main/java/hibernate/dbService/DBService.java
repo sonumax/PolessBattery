@@ -12,29 +12,6 @@ import java.util.Collection;
 public class DBService<T> {
 
     private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-    private final Session session;
-
-    public DBService() {
-        session = sessionFactory.openSession();
-    }
-
-    public Collection<T> getCollectionResult(ResultHandler<T> resultHandler) {
-        Session session = sessionFactory.openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> criteria = resultHandler.handle(builder);
-        Collection<T> resultList = session.createQuery(criteria).getResultList();
-        session.close();
-        return resultList;
-    }
-
-    public T getUniqueResult(ResultHandler<T> resultHandler) {
-        Session session = sessionFactory.openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> criteria = resultHandler.handle(builder);
-        T result = session.createQuery(criteria).getSingleResult();
-        session.close();
-        return result;
-    }
 
     public void insertToDB(T initial) {
         Session session = sessionFactory.openSession();
@@ -65,5 +42,23 @@ public class DBService<T> {
         T answer = session.get(parameter, id);
         session.close();
         return answer;
+    }
+
+    public T getUniqueResult(ResultHandler<T> resultHandler) {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> criteria = resultHandler.createCriteria(builder);
+        T result = session.createQuery(criteria).getSingleResult();
+        session.close();
+        return result;
+    }
+
+    public Collection<T> getCollectionResult(ResultHandler<T> resultHandler) {
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<T> criteria = resultHandler.createCriteria(builder);
+        Collection<T> resultList = session.createQuery(criteria).getResultList();
+        session.close();
+        return resultList;
     }
 }

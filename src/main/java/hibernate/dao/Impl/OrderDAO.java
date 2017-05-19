@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 import java.util.Collection;
 import java.util.Date;
 
-public class Order implements IOrder<OrdersEntity> {
+public class OrderDAO implements IOrder<OrdersEntity> {
 
     private final DBService<OrdersEntity> dbService = new DBService<>();
 

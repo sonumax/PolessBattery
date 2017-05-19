@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Polarity implements IPolarity<PolarityEntity> {
+public class PolarityDAO implements IPolarity<PolarityEntity> {
 
     private final DBService<PolarityEntity> dbService = new DBService<>();
 

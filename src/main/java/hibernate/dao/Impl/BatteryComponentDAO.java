@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class BatteryComponent implements IBatteryComponent<BatteryComponentsEntity> {
+public class BatteryComponentDAO implements IBatteryComponent<BatteryComponentsEntity> {
 
     private final DBService<BatteryComponentsEntity> dbService = new DBService<>();
 

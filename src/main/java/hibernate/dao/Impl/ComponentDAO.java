@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Component implements IComponent<ComponentEntity>{
+public class ComponentDAO implements IComponent<ComponentEntity>{
 
     private final DBService<ComponentEntity> dbService = new DBService<>();
 

@@ -5,10 +5,11 @@ import hibernate.dbService.DBService;
 import hibernate.tables.BatteryEntity;
 
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Battery implements IBattery<BatteryEntity> {
+public class BatteryDAO implements IBattery<BatteryEntity> {
 
     private final DBService<BatteryEntity> dbService = new DBService<>();
 
@@ -74,7 +75,7 @@ public class Battery implements IBattery<BatteryEntity> {
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
             Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
             criteria.select(resultRoot);
-            criteria.where(builder.equal(resultRoot.get("polarityId"), polarityId));
+            criteria.where(builder.equal(resultRoot.get("polarity"), polarityId));
             return criteria;
         });
         return result;
@@ -86,6 +87,23 @@ public class Battery implements IBattery<BatteryEntity> {
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
             Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
             criteria.select(resultRoot);
+            return criteria;
+        });
+        return result;
+    }
+
+    public BatteryEntity getByMarkCapacityAmperagePolarity (String mark, int capacity, int amperage, int polarityId) {
+        BatteryEntity result = dbService.getUniqueResult(builder -> {
+            System.out.format(mark + " " + capacity + " " +  amperage + " " + polarityId);
+            CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
+            Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
+            criteria.select(resultRoot);
+
+            Predicate predicate = builder.and(builder.equal(resultRoot.get("mark"), mark),
+                    builder.equal(resultRoot.get("capacity"), capacity),
+                    builder.equal(resultRoot.get("amperage"), amperage),
+                    builder.equal(resultRoot.get("polarity"), polarityId));
+            criteria.where(predicate);
             return criteria;
         });
         return result;

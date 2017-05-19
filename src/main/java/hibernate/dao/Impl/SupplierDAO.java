@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 
-public class Supplier implements Organization<EmployeesEntity> {
+public class SupplierDAO implements Organization<EmployeesEntity> {
 
     private final DBService<EmployeesEntity> dbService = new DBService<>();
 

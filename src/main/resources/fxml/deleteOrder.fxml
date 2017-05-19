@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFX.DeleteOrder">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFX.controller.DeleteOrder">
    <children>
       <HBox prefHeight="50.0" prefWidth="350.0">
          <children>
@@ -23,12 +23,12 @@
       </HBox>
       <HBox prefHeight="43.0" prefWidth="350.0">
          <children>
-            <Button fx:id="btnOk" mnemonicParsing="false" prefWidth="100.0" text="Да">
+            <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" onAction="#actionOk" prefWidth="100.0" text="Да">
                <HBox.margin>
                   <Insets bottom="5.0" left="75.0" right="5.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnNo" mnemonicParsing="false" prefWidth="100.0" text="Нет">
+            <Button fx:id="btnNo" cancelButton="true" mnemonicParsing="false" onAction="#actionClose" prefWidth="100.0" text="Нет">
                <HBox.margin>
                   <Insets bottom="5.0" left="70.0" right="5.0" top="10.0" />
                </HBox.margin>

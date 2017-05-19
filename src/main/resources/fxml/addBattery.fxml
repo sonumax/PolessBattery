@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="412.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFX.controller.AddBattery">
+   <children>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label text="Марка">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfMark" prefHeight="31.0" prefWidth="167.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Ёмкость">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfCapacity" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="196.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+         <children>
+            <Label text="Ток">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfAmperage" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="152.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Полярность">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <ChoiceBox fx:id="chcbPolarity" prefHeight="31.0" prefWidth="192.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+         <children>
+            <Label text="Сплав свинца">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfLead" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="131.0">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Сепаратор">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfSeparator" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="160.0">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label text="Пластина +">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfPlatePlus" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="136.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+            <Label text="Пластина -">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtfPlateMinus" onKeyTyped="#inputNumber" prefHeight="31.0" prefWidth="145.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <CheckBox fx:id="chkLiner" mnemonicParsing="false" text="Вкладыш">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Label text="Ручка">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="5.0" top="15.0" />
+               </HBox.margin>
+            </Label>
+            <ChoiceBox fx:id="chcbHandle" prefHeight="15.0" prefWidth="68.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="chcbPatch" prefHeight="31.0" prefWidth="119.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <CheckBox fx:id="chkbIndicator" mnemonicParsing="false" text="Индикатор заряда">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
+               </HBox.margin>
+            </CheckBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="58.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" onAction="#actionSave" text="Потвердить">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#actionClose" text="Отмена">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

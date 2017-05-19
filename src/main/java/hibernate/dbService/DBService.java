@@ -13,7 +13,7 @@ public class DBService<T> {
 
     private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-    public void insertToDB(T initial) {
+    public void insertToDB(final T initial) {
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
         session.persist(initial);
@@ -21,7 +21,7 @@ public class DBService<T> {
         session.close();
     }
 
-    public void updateInDB(T initial) {
+    public void updateInDB(final T initial) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(initial);
@@ -29,7 +29,7 @@ public class DBService<T> {
         session.close();
     }
 
-    public void deleteInDB(T initial) {
+    public void deleteInDB(final T initial) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(initial);
@@ -44,7 +44,7 @@ public class DBService<T> {
         return answer;
     }
 
-    public T getUniqueResult(ResultHandler<T> resultHandler) {
+    public T getUniqueResult(final ResultHandler<T> resultHandler) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> criteria = resultHandler.createCriteria(builder);
@@ -53,7 +53,7 @@ public class DBService<T> {
         return result;
     }
 
-    public Collection<T> getCollectionResult(ResultHandler<T> resultHandler) {
+    public Collection<T> getCollectionResult(final ResultHandler<T> resultHandler) {
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> criteria = resultHandler.createCriteria(builder);

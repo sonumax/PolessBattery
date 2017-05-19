@@ -92,7 +92,7 @@ public class BatteryDAO implements IBattery<BatteryEntity> {
         return result;
     }
 
-    public BatteryEntity getByMarkCapacityAmperagePolarity (String mark, int capacity, int amperage, int polarityId) {
+    public BatteryEntity getByMarkCapacityAmperagePolarity (final String mark, final int capacity, final int amperage, final int polarityId) {
         BatteryEntity result = dbService.getUniqueResult(builder -> {
             System.out.format(mark + " " + capacity + " " +  amperage + " " + polarityId);
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);

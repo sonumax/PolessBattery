@@ -11,7 +11,7 @@ public class StorageComponentEntity {
     private ComponentEntity component;
 
     @Id
-    @Column(name = "ComponentID")
+    @Column(name = "ComponentStrongeID")
     public int getStorageComponentId() {
         return storageComponentId;
     }
@@ -41,7 +41,7 @@ public class StorageComponentEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "ComponentID", referencedColumnName = "ComponentID", nullable = false)
+    @JoinColumn(name = "ComponentStrongeID", referencedColumnName = "ComponentID", nullable = false)
     public ComponentEntity getComponent() {
         return component;
     }

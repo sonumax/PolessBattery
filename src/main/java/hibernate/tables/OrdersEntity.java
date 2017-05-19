@@ -9,7 +9,7 @@ import java.sql.Date;
 @Table(name = "Orders", schema = "dbo", catalog = "PolessBattery")
 public class OrdersEntity {
     private int orderId;
-    private double quantityProduct;
+    private int quantityProduct;
     private Date dateExecution;
     private CustomersEntity customer;
     private BatteryEntity battery;
@@ -28,11 +28,11 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "QuantityProduct")
-    public double getQuantityProduct() {
+    public int getQuantityProduct() {
         return quantityProduct;
     }
 
-    public void setQuantityProduct(double quantityProduct) {
+    public void setQuantityProduct(int quantityProduct) {
         this.quantityProduct = quantityProduct;
     }
 

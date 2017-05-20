@@ -6,6 +6,6 @@
   - [x] Get tables;
   - [x] Create classes for tables;
   - [x] Delete record;
-  - [ ] Update record;
+  - [x] Update record;
   - [ ] Find record;
 - [x] UI interfase (JavaFX)

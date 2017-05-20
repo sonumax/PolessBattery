@@ -3,9 +3,9 @@
 
 **Task:**
 - [ ] Work with DB:
-  - [ ] Get tables;
-  - [ ] Create classes for tables;
+  - [x] Get tables;
+  - [x] Create classes for tables;
+  - [x] Delete record;
+  - [x] Update record;
   - [ ] Find record;
-  - [ ] Update record;
-  - [ ] Delete record;
-- [ ] UI interfase (JavaFX)
+- [x] UI interfase (JavaFX)

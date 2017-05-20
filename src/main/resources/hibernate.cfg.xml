@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//hibernate/hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+      <property name="connection.url">jdbc:sqlserver://localhost:1433;databaseName=PolessBattery</property>
+      <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+      <property name="show_sql">true</property>
+      <property name="hibernate.current_session_context_class">thread</property>
+      <property name="hbm2ddl.auto">update</property>
+      <property name="hibernate.connection.password">root</property>
+      <property name="hibernate.connection.username">root</property>
+
+      <mapping class="hibernate.tables.BatteryEntity"/>
+      <mapping class="hibernate.tables.BrigadeEntity"/>
+      <mapping class="hibernate.tables.ComponentEntity"/>
+      <mapping class="hibernate.tables.CustomersEntity"/>
+      <mapping class="hibernate.tables.EmployeesEntity"/>
+      <mapping class="hibernate.tables.OldEmployessEntity"/>
+      <mapping class="hibernate.tables.OrdersEntity"/>
+      <mapping class="hibernate.tables.PolarityEntity"/>
+      <mapping class="hibernate.tables.ProductionAssemblyEntity"/>
+      <mapping class="hibernate.tables.ProductionPackagingEntity"/>
+      <mapping class="hibernate.tables.StorageComponentEntity"/>
+      <mapping class="hibernate.tables.StorageFinishedProductsEntity"/>
+      <mapping class="hibernate.tables.SuppliersEntity"/>
+      <mapping class="hibernate.tables.BatteryComponentsEntity"/>
+
+      <!-- DB schema will be updated if needed -->
+  </session-factory>
+</hibernate-configuration>

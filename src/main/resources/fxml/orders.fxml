@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="946.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFX.controller.OrdersControlling">
+   <children>
+      <HBox maxHeight="50.0" prefHeight="50.0" prefWidth="946.0">
+         <children>
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Добавить">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnChange" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Изменить">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Удалить">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnPrice" mnemonicParsing="false" onAction="#actionButtonPressed" prefWidth="120.0" text="Стоимость">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="60.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnFind" mnemonicParsing="false" prefWidth="120.0" text="Поиск" visible="false">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="50.0" right="20.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
+      <AnchorPane VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="tblOrders" editable="true" prefHeight="290.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                  <TableColumn fx:id="columnOrderId" prefWidth="75.0" text="OrderId" visible="false" />
+                  <TableColumn fx:id="columnBatteryId" prefWidth="75.0" text="BatteryId" visible="false" />
+                <TableColumn fx:id="columnCustomers" prefWidth="186.0" text="Заказчик" />
+                <TableColumn fx:id="columnMark" minWidth="0.0" prefWidth="169.0" text="Марка" />
+                  <TableColumn fx:id="columnCapacity" prefWidth="82.0" text="Ёмкость" />
+                  <TableColumn fx:id="columnAmperage" prefWidth="63.0" text="Ток" />
+                  <TableColumn fx:id="columnPolarity" prefWidth="109.0" text="Полярность" />
+                  <TableColumn fx:id="columnCount" prefWidth="114.0" text="Количество" />
+                  <TableColumn fx:id="columnDaneExecute" prefWidth="147.0" text="Дата выполнения" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TableView>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </VBox.margin>
+      </AnchorPane>
+   </children>
+</VBox>

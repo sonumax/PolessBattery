@@ -18,7 +18,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import util.DialogManager;
+import util.Utils;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -40,15 +40,21 @@ public class AddBattery {
     public Button btnOk;
     public Button btnCancel;
 
+    private Stage orderStage;
+
+    public void setOrderStage(Stage orderStage) {
+        this.orderStage = orderStage;
+    }
+
     @FXML
     private void initialize() {
         fillChoiceBox();
         selectFirstItem();
     }
 
-    public void inputTextOnlyNumber(KeyEvent keyEvent) {
-        char key = keyEvent.getCharacter().charAt(0);
-        if ((key < '0') || (key > '9')) {
+    public void inputOnlyNumber(KeyEvent keyEvent) {
+        char inputKey = keyEvent.getCharacter().charAt(0);
+        if ((inputKey < '0') || (inputKey > '9')) {
             keyEvent.consume();
         }
     }
@@ -57,6 +63,7 @@ public class AddBattery {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+        orderStage.show();
     }
 
     public void actionSave(ActionEvent actionEvent) {
@@ -175,11 +182,11 @@ public class AddBattery {
     }
 
     private boolean checkValues() {
-        if (txtfMark.getText().trim().length()==0 || txtfCapacity.getText().trim().length()==0 ||
-                txtfAmperage.getText().trim().length() == 0 || txtfLead.getText().trim().length() == 0 ||
-                txtfSeparator.getText().trim().length() == 0 || txtfPlatePlus.getText().trim().length() == 0 ||
-                txtfPlateMinus.getText().trim().length() == 0){
-            DialogManager.showErrorDialog("Ошибка", "Заполните все поля");
+        if (Utils.countLengthTextField(txtfMark) == 0 || Utils.countLengthTextField(txtfCapacity) == 0 ||
+                Utils.countLengthTextField(txtfAmperage) == 0 || Utils.countLengthTextField(txtfLead) == 0 ||
+                Utils.countLengthTextField(txtfSeparator) == 0 || Utils.countLengthTextField(txtfPlatePlus) == 0 ||
+                Utils.countLengthTextField(txtfPlateMinus) == 0){
+            Utils.showErrorDialog("Ошибка", "Заполните все поля");
             return false;
         }
         return true;

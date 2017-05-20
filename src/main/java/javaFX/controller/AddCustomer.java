@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import util.DialogManager;
+import util.Utils;
 
 public class AddCustomer {
     public TextField txtfCustomer;
@@ -19,9 +19,15 @@ public class AddCustomer {
     public Button btnOk;
     public Button btnCancel;
 
+    private Stage orderStage;
+
+    public void setOrderStage(Stage orderStage) {
+        this.orderStage = orderStage;
+    }
+
     public void inputPhone(KeyEvent keyEvent) {
-        char c = keyEvent.getCharacter().charAt(0);
-        if ((c >= '0') && (c <= '9') || (c == '+') || (c == '(') || (c == ')')) {
+        char inputKye = keyEvent.getCharacter().charAt(0);
+        if ((inputKye >= '0') && (inputKye <= '9') || (inputKye == '+') || (inputKye == '(') || (inputKye == ')')) {
             return;
         }
         keyEvent.consume();
@@ -31,16 +37,21 @@ public class AddCustomer {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+        orderStage.show();
     }
 
     public void actionAddCustomer(ActionEvent actionEvent) {
         if (!checkTextField()) {
-            DialogManager.showInfoDialog("Ошибка", "Заполните все поля");
+            return;
         }
+        saveNewCustomer();
+        actionClose(actionEvent);
+    }
+
+    private void saveNewCustomer() {
         CustomerDAO customerDAO = new CustomerDAO();
         CustomersEntity newCustomer = createNewCustomer();
         customerDAO.add(newCustomer);
-        actionClose(actionEvent);
     }
 
     private CustomersEntity createNewCustomer() {
@@ -54,15 +65,12 @@ public class AddCustomer {
     }
 
     private boolean checkTextField() {
-        if (countLengthTextField(txtfCustomer) == 0 || countLengthTextField(txtfAddress) == 0
-                || countLengthTextField(txtfContactPerson) == 0 || countLengthTextField(txtfPhone) == 0
-                || countLengthTextField(txtfMail) == 0) {
+        if (Utils.countLengthTextField(txtfCustomer) == 0 || Utils.countLengthTextField(txtfAddress) == 0
+                || Utils.countLengthTextField(txtfContactPerson) == 0 || Utils.countLengthTextField(txtfPhone) == 0
+                || Utils.countLengthTextField(txtfMail) == 0) {
+            Utils.showErrorDialog("Ошибка", "Заполните все поля");
             return false;
         }
         return true;
-    }
-
-    private int countLengthTextField(TextField textField) {
-        return textField.getText().trim().length();
     }
 }

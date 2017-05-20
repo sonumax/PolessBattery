@@ -1,6 +1,8 @@
 package javaFX.controller;
 
+import hibernate.dao.Impl.BatteryDAO;
 import hibernate.dao.Impl.OrderDAO;
+import hibernate.tables.BatteryEntity;
 import hibernate.tables.OrdersEntity;
 import javaFX.view.RecordOder;
 import javaFX.view.WorkTableOrders;
@@ -15,7 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import util.DialogManager;
+import util.Utils;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -37,14 +39,29 @@ public class OrdersControlling {
     public TableColumn<RecordOder, Integer> columnCount;
     public TableColumn<RecordOder, Date> columnDaneExecute;
 
-    private Stage ordersStage;
+    private Stage mainStage;
+    private Stage addOrderStage;
+    private Parent fxmlEdit;
+    private AddOrder addOrderController;
+    private FXMLLoader fxmlLoader = new FXMLLoader();
 
     @FXML
     private void initialize() {
         setTableItem();
+        initLoader();
     }
 
-    public void setTableItem() {
+    private void initLoader() {
+        try {
+            fxmlLoader.setLocation(getClass().getResource("/fxml/addOrder.fxml"));
+            fxmlEdit = fxmlLoader.load();
+            addOrderController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setTableItem() {
         columnOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
         columnBatteryId.setCellValueFactory(new PropertyValueFactory<>("batteryId"));
         columnCustomers.setCellValueFactory(new PropertyValueFactory<>("organizationName"));
@@ -55,10 +72,49 @@ public class OrdersControlling {
         columnCount.setCellValueFactory(new PropertyValueFactory<>("quantityProduct"));
         columnDaneExecute.setCellValueFactory(new PropertyValueFactory<>("dateExecution"));
 
+        WorkTableOrders.fillTablesItem();
         tblOrders.setItems(WorkTableOrders.getOrders());
     }
 
-    public void deleteOrder(ActionEvent actionEvent, RecordOder recordOder) {
+    public void actionButtonPressed(ActionEvent actionEvent) {
+        Object source = actionEvent.getSource();
+        if (!(source instanceof Button)) {
+            return;
+        }
+        RecordOder selectedRecordOder = tblOrders.getSelectionModel().getSelectedItem();
+        Button clickedButton = (Button) source;
+        actionButton(actionEvent, selectedRecordOder, clickedButton);
+    }
+
+    private void actionButton(ActionEvent actionEvent, RecordOder selectedRecordOder, Button clickedButton) {
+        switch (clickedButton.getId()) {
+            case "btnAdd":
+                addOrderController.setRecordOder(null);
+                showDialog();
+                break;
+            case "btnChange":
+                if (!personIsSelected(selectedRecordOder)) {
+                    return;
+                }
+                addOrderController.setRecordOder(selectedRecordOder);
+                showDialog();
+                break;
+            case "btnDelete":
+                if (!personIsSelected(selectedRecordOder)) {
+                    return;
+                }
+                deleteOrder(actionEvent, selectedRecordOder.getOrderId());
+                break;
+            case "btnPrice":
+                if (!personIsSelected(selectedRecordOder)) {
+                    return;
+                }
+                showPrice(actionEvent, selectedRecordOder);
+                break;
+        }
+    }
+
+    private void deleteOrder(ActionEvent actionEvent, int orderId) {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -69,107 +125,69 @@ public class OrdersControlling {
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(ordersStage);
+            stage.initOwner(mainStage);
 
             OrderDAO orderDAO = new OrderDAO();
-            OrdersEntity ordersEntity = orderDAO.getOrderById(recordOder.getOrderId());
+            OrdersEntity ordersEntity = orderDAO.getOrderById(orderId);
             deleteOrder.setOrdersEntity(ordersEntity);
-            stage.show();
 
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void addOrder(ActionEvent actionEvent, RecordOder recordOder) {
+    private void showPrice(ActionEvent actionEvent, RecordOder selectOrder) {
         Stage stage = new Stage();
         try {
             FXMLLoader loader = new FXMLLoader();
-            String fxmlFile = "/fxml/addOrder.fxml";
+            String fxmlFile = "/fxml/cost.fxml";
             Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
-
-            AddOrder orderControlling = loader.getController();
-            orderControlling.setOrderStage(stage);
-            orderControlling.setRecordOder(recordOder);
-
-
-            stage.setTitle("Заказа");
+            Cost costController = loader.getController();
+            stage.setTitle("Стоимость заказа");
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(ordersStage);
+            stage.initOwner(mainStage);
+
+            double priceOrder = getPriceOrder(selectOrder);
+            costController.setPriceOrder(priceOrder);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void changeOrder(ActionEvent actionEvent, RecordOder recordOder) {
-        FXMLLoader loader = new FXMLLoader();
-        Stage stage = new Stage();
-        try {
-            String fxmlFile = "/fxml/changeOrder.fxml";
-            Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
-            ChangeOrder changeOrder = loader.getController();
-            changeOrder.setRecordOder(recordOder);
-            stage.setTitle("Изменение заказа");
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(ordersStage);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private double getPriceOrder(RecordOder selectOrder) {
+        BatteryDAO batteryDAO = new BatteryDAO();
+        BatteryEntity battery = batteryDAO.getBatteryById(selectOrder.getBatteryId());
+        double priceBattery = battery.countPrice();
+        return priceBattery * selectOrder.getQuantityProduct();
     }
 
-    public void showDialog(ActionEvent actionEvent) {
-        Object source = actionEvent.getSource();
-
-        // если нажата не кнопка - выходим из метода
-        if (!(source instanceof Button)) {
-            return;
+    private void showDialog() {
+        if (addOrderStage ==null) {
+            addOrderStage = new Stage();
+            addOrderStage.setTitle("Редактирование записи");
+            addOrderStage.setResizable(false);
+            addOrderStage.setScene(new Scene(fxmlEdit));
+            addOrderStage.initModality(Modality.WINDOW_MODAL);
+            addOrderStage.initOwner(mainStage);
+            addOrderController.setOrderStage(addOrderStage);
         }
+        addOrderStage.showAndWait(); // для ожидания закрытия окна
 
-        RecordOder selectedRecordOder = tblOrders.getSelectionModel().getSelectedItem();
-
-        Button clickedButton = (Button) source;
-
-        switch (clickedButton.getId()) {
-            case "btnAdd":
-                addOrder(actionEvent, null);
-                break;
-
-            case "btnChange":
-                if (!personIsSelected(selectedRecordOder)) {
-                    return;
-                }
-                addOrder(actionEvent, selectedRecordOder);
-                break;
-            case "btnDelete":
-                if (!personIsSelected(selectedRecordOder)) {
-                    return;
-                }
-                deleteOrder(actionEvent, selectedRecordOder);
-                break;
-
-            case "btnPrice":
-                break;
-
-            case "btnFind":
-                break;
-        }
     }
 
     private boolean personIsSelected(RecordOder oder) {
         if(oder == null){
-            DialogManager.showInfoDialog("Ошибка", "Выберите заказ");
+            Utils.showErrorDialog("Ошибка", "Выберите заказ");
             return false;
         }
         return true;
     }
 
-    public void setOrdersStage(Stage ordersStage) {
-        this.ordersStage = ordersStage;
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
     }
 }

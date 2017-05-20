@@ -16,11 +16,11 @@ public class WorkTableOrders {
     private static OrderDAO orderDAO = new OrderDAO();
 
     public static ObservableList<RecordOder> getOrders() {
-        fillTablesItem();
         return ORDERS;
     }
 
-    private static void fillTablesItem() {
+    public static void fillTablesItem() {
+        ORDERS.clear();
         for(OrdersEntity ordersEntity : orderDAO.getAll()) {
             ORDERS.add(getWriteRecord(ordersEntity));
         }

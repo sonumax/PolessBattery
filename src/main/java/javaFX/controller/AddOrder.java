@@ -43,13 +43,16 @@ public class AddOrder {
     public DatePicker dateDateExecution;
     public Button btnOk;
     public Button btnCancel;
-
     private Stage orderStage;
     private RecordOder recordOder;
 
-    @FXML
-    private void initialize() {
-        fillChoiceBox();
+    public void setOrderStage(Stage orderStage) {
+        this.orderStage = orderStage;
+    }
+
+    public void setRecordOder(RecordOder recordOder) {
+        this.recordOder = recordOder;
+        setFields();
     }
 
     public void inputKey(KeyEvent keyEvent) {
@@ -87,6 +90,7 @@ public class AddOrder {
             Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
             AddBattery batteryController = loader.getController();
             batteryController.setOrderStage(orderStage);
+            batteryController.setAddOrder(this);
             stage.setTitle("Новый заказчик");
             stage.setResizable(false);
             stage.setScene(new Scene(root));
@@ -109,6 +113,93 @@ public class AddOrder {
         if (!checkValues()){
             return;
         }
+        saveOrder();
+        WorkTableOrders.fillTablesItem();
+        actionClose(actionEvent);
+    }
+
+    @FXML
+    private void initialize() {
+        setActionOnChoiceBox();
+        fillChoiceBox();
+    }
+
+    private void setActionOnChoiceBox() {
+        setActionOnMark();
+        setActionOnCapacity();
+        setActionOnAmperage();
+    }
+
+    private void setActionOnMark() {
+        chbMark.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            clearAndDisableChoiceBox();
+            BatteryDAO batteryDAO = new BatteryDAO();
+            final String mark = chbMark.getItems().get(newValue.intValue());
+            Set<Integer> capacity = new HashSet<>();
+            for (BatteryEntity batteryEntity : batteryDAO.getByMark(mark)){
+                capacity.add(batteryEntity.getCapacity());
+            }
+
+            chbCapacity.setItems(FXCollections.observableArrayList(capacity));
+            chbCapacity.setDisable(false);
+        });
+    }
+
+    private void clearAndDisableChoiceBox() {
+        clearChoiceBox();
+        disableChoiceBox();
+    }
+
+    private void clearChoiceBox() {
+        chbCapacity.getItems().clear();
+        chbAmperage.getItems().clear();
+        chbPolarity.getItems().clear();
+    }
+
+    private void disableChoiceBox() {
+        chbCapacity.setDisable(true);
+        chbAmperage.setDisable(true);
+        chbPolarity.setDisable(true);
+    }
+
+    private void setActionOnCapacity() {
+        chbCapacity.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() == -1) {
+                return;
+            }
+            chbPolarity.setDisable(true);
+            BatteryDAO batteryDAO = new BatteryDAO();
+            final String mark = chbMark.getValue();
+            final int capacity = chbCapacity.getItems().get(newValue.intValue());
+            Set<Integer> amperage = new HashSet<>();
+            for (BatteryEntity batteryEntity : batteryDAO.getByMarkCapacity(mark, capacity)) {
+                amperage.add(batteryEntity.getAmperage());
+            }
+            chbAmperage.setItems(FXCollections.observableArrayList(amperage));
+            chbAmperage.setDisable(false);
+        });
+    }
+
+    private void setActionOnAmperage() {
+        chbAmperage.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.intValue() == -1) {
+                return;
+            }
+            BatteryDAO batteryDAO = new BatteryDAO();
+            final String mark = chbMark.getValue();
+            final int capacity = chbCapacity.getValue();
+            final int amperage = chbAmperage.getItems().get(newValue.intValue());
+            Set<String> polarity = new HashSet<>();
+            for (BatteryEntity batteryEntity : batteryDAO.getByMarkCapacityAmperage(mark, capacity, amperage)) {
+                final String namePolarity = batteryEntity.getPolarity().getNamePolarity();
+                polarity.add(namePolarity);
+            }
+            chbPolarity.setItems(FXCollections.observableArrayList(polarity));
+            chbPolarity.setDisable(false);
+        });
+    }
+
+    private void saveOrder() {
         OrderDAO orderDAO = new OrderDAO();
         if (recordOder == null) {
             OrdersEntity ordersEntity = getOrdersEntityWithSetFields(new OrdersEntity());
@@ -118,17 +209,17 @@ public class AddOrder {
             OrdersEntity newOrder = getOrdersEntityWithSetFields(oldOrder);
             orderDAO.update(newOrder);
         }
-        WorkTableOrders.fillTablesItem();
-        actionClose(actionEvent);
     }
 
-    private OrdersEntity getOrdersEntityWithSetFields(OrdersEntity ordersEntity) {
+    private OrdersEntity getOrdersEntityWithSetFields(final OrdersEntity ordersEntity) {
         CustomerDAO customerDAO = new CustomerDAO();
-        CustomersEntity inputCustomer = customerDAO.getOrdersByOrganizationName(chbCustomers.getValue());
-        BatteryEntity inputBattery = getBatteryEntity();
-        Calendar calendar = getCalendar();
-        int quantity = Integer.valueOf(txtfQuantity.getText());
-        return getOrdersEntityWithSetFields(ordersEntity,inputCustomer, inputBattery, calendar, quantity);
+        ordersEntity.setCustomer(customerDAO.getOrdersByOrganizationName(chbCustomers.getValue()));
+        ordersEntity.setBattery(getBatteryEntity());
+        final Date calendar = new Date(getCalendar().getTimeInMillis());
+        ordersEntity.setDateExecution(calendar);
+        final Integer quantityProduct = Integer.valueOf(txtfQuantity.getText());
+        ordersEntity.setQuantityProduct(quantityProduct);
+        return ordersEntity;
     }
 
     private BatteryEntity getBatteryEntity() {
@@ -153,47 +244,23 @@ public class AddOrder {
         return calendar;
     }
 
-    private OrdersEntity getOrdersEntityWithSetFields(OrdersEntity ordersEntity,CustomersEntity inputCustomer, BatteryEntity inputBattery, Calendar calendar, int quantity) {
-        ordersEntity.setCustomer(inputCustomer);
-        ordersEntity.setBattery(inputBattery);
-        ordersEntity.setQuantityProduct(quantity);
-        ordersEntity.setDateExecution(new Date(calendar.getTimeInMillis()));
-        return ordersEntity;
+    public void fillChoiceBox() {
+        fillMarkBattery();
+        fillItemToCustomers();
     }
 
-    public void setOrderStage(Stage orderStage) {
-        this.orderStage = orderStage;
-    }
-
-    public void setRecordOder(RecordOder recordOder) {
-        this.recordOder = recordOder;
-        setFields();
-    }
-
-    private void fillChoiceBox() {
-        addItemOfBattery();
-        addItemOfCustomers();
-        addItemToPolaritys();
-    }
-
-    private void addItemOfBattery() {
+    private void fillMarkBattery() {
         BatteryDAO batteryDAO = new BatteryDAO();
-        Set<String> mark= new HashSet<>();
-        Set<Integer> capacity = new HashSet<>();
-        Set<Integer> amperage = new HashSet<>();
+        Set<String> mark = new HashSet<>();
 
         for (BatteryEntity batteryEntity : batteryDAO.getAll()) {
             mark.add(batteryEntity.getMark());
-            capacity.add(batteryEntity.getCapacity());
-            amperage.add(batteryEntity.getAmperage());
         }
 
         chbMark.setItems(FXCollections.observableArrayList(mark));
-        chbCapacity.setItems(FXCollections.observableArrayList(capacity));
-        chbAmperage.setItems(FXCollections.observableArrayList(amperage));
     }
 
-    private void addItemOfCustomers() {
+    private void fillItemToCustomers() {
         CustomerDAO customerDAO = new CustomerDAO();
         Set<String> customers = new HashSet<>();
         for (CustomersEntity customersEntity: customerDAO.getAll()) {
@@ -202,19 +269,8 @@ public class AddOrder {
         chbCustomers.setItems(FXCollections.observableArrayList(customers));
     }
 
-    private void addItemToPolaritys() {
-        PolarityDAO polarityDAO = new PolarityDAO();
-        Set<String> polaritys = new HashSet<>();
-
-        for (PolarityEntity polarityEntity : polarityDAO.getAll()) {
-            polaritys.add(polarityEntity.getNamePolarity());
-        }
-
-        chbPolarity.setItems(FXCollections.observableArrayList(polaritys));
-    }
-
     private boolean checkValues() {
-        if (Utils.countLengthTextField(txtfQuantity) == 0){
+        if (Utils.countLengthTextField(txtfQuantity) == 0 || chbPolarity.getValue() == null || chbCustomers.getValue() == null){
             Utils.showErrorDialog("Ошибка", "Заполните все поля");
             return false;
         }
@@ -223,7 +279,6 @@ public class AddOrder {
 
     private void setFields() {
         if (recordOder == null) {
-            setFirstItem();
             cleanTextField();
             return;
         }
@@ -245,13 +300,5 @@ public class AddOrder {
 
         Date date = recordOder.getDateExecution();
         dateDateExecution.setValue(date.toLocalDate());
-    }
-
-    private void setFirstItem() {
-        chbMark.getSelectionModel().selectFirst();
-        chbCapacity.getSelectionModel().selectFirst();
-        chbAmperage.getSelectionModel().selectFirst();
-        chbCustomers.getSelectionModel().selectFirst();
-        chbPolarity.getSelectionModel().selectFirst();
     }
 }

@@ -45,10 +45,14 @@ public class OrdersControlling {
     private AddOrder addOrderController;
     private FXMLLoader fxmlLoader = new FXMLLoader();
 
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
+    }
+
     @FXML
     private void initialize() {
-        setTableItem();
         initLoader();
+        setTableItem();
     }
 
     private void initLoader() {
@@ -81,8 +85,8 @@ public class OrdersControlling {
         if (!(source instanceof Button)) {
             return;
         }
-        RecordOder selectedRecordOder = tblOrders.getSelectionModel().getSelectedItem();
         Button clickedButton = (Button) source;
+        RecordOder selectedRecordOder = tblOrders.getSelectionModel().getSelectedItem();
         actionButton(actionEvent, selectedRecordOder, clickedButton);
     }
 
@@ -112,6 +116,23 @@ public class OrdersControlling {
                 showPrice(actionEvent, selectedRecordOder);
                 break;
         }
+    }
+
+    private void showDialog() {
+        if (addOrderStage ==null) {
+            createChangeOrderStage();
+        }
+        addOrderStage.showAndWait();
+    }
+
+    private void createChangeOrderStage() {
+        addOrderStage = new Stage();
+        addOrderStage.setTitle("Редактирование записи");
+        addOrderStage.setResizable(false);
+        addOrderStage.setScene(new Scene(fxmlEdit));
+        addOrderStage.initModality(Modality.WINDOW_MODAL);
+        addOrderStage.initOwner(mainStage);
+        addOrderController.setOrderStage(addOrderStage);
     }
 
     private void deleteOrder(ActionEvent actionEvent, int orderId) {
@@ -165,29 +186,11 @@ public class OrdersControlling {
         return priceBattery * selectOrder.getQuantityProduct();
     }
 
-    private void showDialog() {
-        if (addOrderStage ==null) {
-            addOrderStage = new Stage();
-            addOrderStage.setTitle("Редактирование записи");
-            addOrderStage.setResizable(false);
-            addOrderStage.setScene(new Scene(fxmlEdit));
-            addOrderStage.initModality(Modality.WINDOW_MODAL);
-            addOrderStage.initOwner(mainStage);
-            addOrderController.setOrderStage(addOrderStage);
-        }
-        addOrderStage.showAndWait(); // для ожидания закрытия окна
-
-    }
-
     private boolean personIsSelected(RecordOder oder) {
         if(oder == null){
             Utils.showErrorDialog("Ошибка", "Выберите заказ");
             return false;
         }
         return true;
-    }
-
-    public void setMainStage(Stage mainStage) {
-        this.mainStage = mainStage;
     }
 }

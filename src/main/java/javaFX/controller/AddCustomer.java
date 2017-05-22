@@ -50,11 +50,11 @@ public class AddCustomer {
 
     private void saveNewCustomer() {
         CustomerDAO customerDAO = new CustomerDAO();
-        CustomersEntity newCustomer = createNewCustomer();
+        CustomersEntity newCustomer = getNewCustomer();
         customerDAO.add(newCustomer);
     }
 
-    private CustomersEntity createNewCustomer() {
+    private CustomersEntity getNewCustomer() {
         CustomersEntity newCustomer = new CustomersEntity();
         newCustomer.setOrganizationName(txtfCustomer.getText().trim());
         newCustomer.setAddress(txtfAddress.getText().trim());

@@ -7,6 +7,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         String fxmlFile = "/fxml/orders.fxml";
@@ -21,11 +26,6 @@ public class Main extends Application {
         primaryStage.setMinHeight(450);
         primaryStage.setMinWidth(950);
         primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     @Override

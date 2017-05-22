@@ -46,7 +46,7 @@ public class BatteryDAO implements IBattery<BatteryEntity> {
     }
 
     @Override
-    public Collection<BatteryEntity> getByCapacity(final double capacity) {
+    public Collection<BatteryEntity> getByCapacity(final int capacity) {
         Collection<BatteryEntity> result = dbService.getCollectionResult(builder -> {
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
             Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
@@ -58,7 +58,7 @@ public class BatteryDAO implements IBattery<BatteryEntity> {
     }
 
     @Override
-    public Collection<BatteryEntity> getByAmperage(final double amperage) {
+    public Collection<BatteryEntity> getByAmperage(final int amperage) {
         Collection<BatteryEntity> result = dbService.getCollectionResult(builder -> {
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
             Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
@@ -92,9 +92,35 @@ public class BatteryDAO implements IBattery<BatteryEntity> {
         return result;
     }
 
+    public Collection<BatteryEntity> getByMarkCapacity(final String mark, final int capacity) {
+        Collection<BatteryEntity> result = dbService.getCollectionResult(builder -> {
+            CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
+            Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
+            criteria.select(resultRoot);
+            Predicate predicate = builder.and(builder.equal(resultRoot.get("mark"), mark),
+                    builder.equal(resultRoot.get("capacity"), capacity));
+            criteria.where(predicate);
+            return criteria;
+        });
+        return result;
+    }
+
+    public Collection<BatteryEntity> getByMarkCapacityAmperage(final String mark, final int capacity, final int amperage) {
+        Collection<BatteryEntity> result = dbService.getCollectionResult(builder -> {
+            CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
+            Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
+            criteria.select(resultRoot);
+            Predicate predicate = builder.and(builder.equal(resultRoot.get("mark"), mark),
+                    builder.equal(resultRoot.get("capacity"), capacity),
+                    builder.equal(resultRoot.get("amperage"), amperage));
+            criteria.where(predicate);
+            return criteria;
+        });
+        return result;
+    }
+
     public BatteryEntity getByMarkCapacityAmperagePolarity (final String mark, final int capacity, final int amperage, final int polarityId) {
         BatteryEntity result = dbService.getUniqueResult(builder -> {
-            System.out.format(mark + " " + capacity + " " +  amperage + " " + polarityId);
             CriteriaQuery<BatteryEntity> criteria = builder.createQuery(BatteryEntity.class);
             Root<BatteryEntity> resultRoot = criteria.from(BatteryEntity.class);
             criteria.select(resultRoot);

@@ -41,15 +41,14 @@ public class AddBattery {
     public Button btnCancel;
 
     private Stage orderStage;
+    private AddOrder addOrder;
 
     public void setOrderStage(Stage orderStage) {
         this.orderStage = orderStage;
     }
 
-    @FXML
-    private void initialize() {
-        fillChoiceBox();
-        selectFirstItem();
+    public void setAddOrder(AddOrder addOrder) {
+        this.addOrder = addOrder;
     }
 
     public void inputOnlyNumber(KeyEvent keyEvent) {
@@ -71,7 +70,14 @@ public class AddBattery {
             return;
         }
         addNewBattery();
+        addOrder.fillChoiceBox();
         actionClose(actionEvent);
+    }
+
+    @FXML
+    private void initialize() {
+        fillChoiceBox();
+        selectFirstItem();
     }
 
     private void addNewBattery() {

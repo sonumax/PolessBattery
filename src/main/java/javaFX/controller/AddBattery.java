@@ -70,7 +70,6 @@ public class AddBattery {
             return;
         }
         addNewBattery();
-        addOrder.fillChoiceBox();
         actionClose(actionEvent);
     }
 
@@ -86,6 +85,8 @@ public class AddBattery {
         setBatteryCharacteristics(newBattery);
         batteryDAO.add(newBattery);
         setBatteryComponents(newBattery);
+        addOrder.fillMarkBattery();
+        addOrder.chbMark.setValue(newBattery.getMark());
     }
 
     private void setBatteryCharacteristics(final BatteryEntity newBattery) {

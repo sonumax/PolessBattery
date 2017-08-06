@@ -70,6 +70,7 @@ public class AddOrder {
             Parent root = loader.load(getClass().getResourceAsStream(fxmlFile));
             AddCustomer customerController = loader.getController();
             customerController.setOrderStage(orderStage);
+            customerController.setAddOrder(this);
             stage.setTitle("Новый заказчик");
             stage.setResizable(false);
             stage.setScene(new Scene(root));
@@ -118,6 +119,31 @@ public class AddOrder {
         actionClose(actionEvent);
     }
 
+    public void fillChoiceBox() {
+        fillMarkBattery();
+        fillItemToCustomers();
+    }
+
+    public void fillMarkBattery() {
+        BatteryDAO batteryDAO = new BatteryDAO();
+        Set<String> mark = new HashSet<>();
+
+        for (BatteryEntity batteryEntity : batteryDAO.getAll()) {
+            mark.add(batteryEntity.getMark());
+        }
+
+        chbMark.setItems(FXCollections.observableArrayList(mark));
+    }
+
+    public void fillItemToCustomers() {
+        CustomerDAO customerDAO = new CustomerDAO();
+        Set<String> customers = new HashSet<>();
+        for (CustomersEntity customersEntity: customerDAO.getAll()) {
+            customers.add(customersEntity.getOrganizationName());
+        }
+        chbCustomers.setItems(FXCollections.observableArrayList(customers));
+    }
+
     @FXML
     private void initialize() {
         setActionOnChoiceBox();
@@ -130,9 +156,38 @@ public class AddOrder {
         setActionOnAmperage();
     }
 
+    private void clearAndDisableChoiceBox() {
+        clearChoiceBox();
+        disableChoiceBox();
+    }
+
+    private void clearChoiceBox() {
+        chbCustomers.getItems().clear();
+        chbMark.getItems().clear();
+        chbCapacity.getItems().clear();
+        chbAmperage.getItems().clear();
+        chbPolarity.getItems().clear();
+    }
+
+    private void disableChoiceBox() {
+        chbCapacity.setDisable(true);
+        chbAmperage.setDisable(true);
+        chbPolarity.setDisable(true);
+    }
+
     private void setActionOnMark() {
         chbMark.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            clearAndDisableChoiceBox();
+
+            if (newValue.intValue() < 0) {
+                return;
+            }
+
+            chbCapacity.getItems().clear();
+            chbAmperage.getItems().clear();
+            chbPolarity.getItems().clear();
+
+            disableChoiceBox();
+
             BatteryDAO batteryDAO = new BatteryDAO();
             final String mark = chbMark.getItems().get(newValue.intValue());
             Set<Integer> capacity = new HashSet<>();
@@ -145,29 +200,13 @@ public class AddOrder {
         });
     }
 
-    private void clearAndDisableChoiceBox() {
-        clearChoiceBox();
-        disableChoiceBox();
-    }
-
-    private void clearChoiceBox() {
-        chbCapacity.getItems().clear();
-        chbAmperage.getItems().clear();
-        chbPolarity.getItems().clear();
-    }
-
-    private void disableChoiceBox() {
-        chbCapacity.setDisable(true);
-        chbAmperage.setDisable(true);
-        chbPolarity.setDisable(true);
-    }
-
     private void setActionOnCapacity() {
         chbCapacity.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() == -1) {
                 return;
             }
             chbPolarity.setDisable(true);
+            chbPolarity.getItems().clear();
             BatteryDAO batteryDAO = new BatteryDAO();
             final String mark = chbMark.getValue();
             final int capacity = chbCapacity.getItems().get(newValue.intValue());
@@ -244,31 +283,6 @@ public class AddOrder {
         return calendar;
     }
 
-    public void fillChoiceBox() {
-        fillMarkBattery();
-        fillItemToCustomers();
-    }
-
-    private void fillMarkBattery() {
-        BatteryDAO batteryDAO = new BatteryDAO();
-        Set<String> mark = new HashSet<>();
-
-        for (BatteryEntity batteryEntity : batteryDAO.getAll()) {
-            mark.add(batteryEntity.getMark());
-        }
-
-        chbMark.setItems(FXCollections.observableArrayList(mark));
-    }
-
-    private void fillItemToCustomers() {
-        CustomerDAO customerDAO = new CustomerDAO();
-        Set<String> customers = new HashSet<>();
-        for (CustomersEntity customersEntity: customerDAO.getAll()) {
-            customers.add(customersEntity.getOrganizationName());
-        }
-        chbCustomers.setItems(FXCollections.observableArrayList(customers));
-    }
-
     private boolean checkValues() {
         if (Utils.countLengthTextField(txtfQuantity) == 0 || chbPolarity.getValue() == null || chbCustomers.getValue() == null){
             Utils.showErrorDialog("Ошибка", "Заполните все поля");
@@ -280,6 +294,8 @@ public class AddOrder {
     private void setFields() {
         if (recordOder == null) {
             cleanTextField();
+            clearAndDisableChoiceBox();
+            fillChoiceBox();
             return;
         }
         setFieldsOfOrder();

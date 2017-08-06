@@ -20,9 +20,14 @@ public class AddCustomer {
     public Button btnCancel;
 
     private Stage orderStage;
+    private AddOrder addOrder;
 
     public void setOrderStage(Stage orderStage) {
         this.orderStage = orderStage;
+    }
+
+    public void setAddOrder(AddOrder addOrder) {
+        this.addOrder = addOrder;
     }
 
     public void inputPhone(KeyEvent keyEvent) {
@@ -52,6 +57,8 @@ public class AddCustomer {
         CustomerDAO customerDAO = new CustomerDAO();
         CustomersEntity newCustomer = getNewCustomer();
         customerDAO.add(newCustomer);
+        addOrder.fillItemToCustomers();
+        addOrder.chbCustomers.setValue(newCustomer.getOrganizationName());
     }
 
     private CustomersEntity getNewCustomer() {
